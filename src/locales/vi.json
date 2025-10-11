@@ -1,0 +1,255 @@
+{
+  "settings": {
+    "title": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "instructions": "Hướng dẫn",
+    "tabs": {
+      "general": "Chung",
+      "environment": "Môi trường",
+      "controls": "Điều khiển",
+      "info": "Thông tin"
+    },
+    "general": {
+      "fullscreen": "Toàn màn hình",
+      "fullscreenShort": "Bật"
+    },
+    "env": {
+      "rain": "Mưa",
+      "density": "Mật độ",
+      "rainDensity": "Mật độ mưa"
+    },
+    "render": {
+      "zoom": "Thu phóng",
+      "quality": "Chất lượng",
+      "high": "Cao",
+      "medium": "Trung bình",
+      "low": "Thấp",
+      "reloadPrompt": "Thay đổi chất lượng đồ họa cần tải lại. Tải lại ngay?",
+      "reloadTitle": "Cần tải lại",
+      "reloadDesc": "Thay đổi chất lượng đồ họa cần tải lại."
+    }
+  },
+  "instructions": {
+    "title": "Hướng dẫn",
+    "items": [
+      "Chuột + Bàn phím",
+      "- Nhấp phải: di chuyển",
+      "- Nhấp trái: tấn công kẻ địch",
+      "- A: giữ để tự động tấn công cơ bản kẻ địch gần nhất",
+      "- Q/W/E/R: kỹ năng",
+      "- S: huỷ lệnh",
+      "- B: dịch chuyển",
+      "- M: cắm cờ",
+      "",
+      "Cảm ứng",
+      "- Joystick: di chuyển",
+      "- Nút kỹ năng: tấn công",
+      "- Nút phụ trợ: dịch chuyển, cắm cờ"
+    ]
+  },
+  "hero": {
+    "title": "Thuỷ Thần",
+    "skills": "Kỹ năng",
+    "tabs": {
+      "info": "Thông tin",
+      "skills": "Kỹ năng",
+      "skillbook": "Sách kỹ năng",
+      "maps": "Bản đồ",
+      "marks": "Đánh dấu"
+    },
+    "info": {
+      "level": "Cấp",
+      "hp": "HP",
+      "mp": "MP",
+      "title": "Tướng",
+      "skillPoints": "Điểm kĩ năng",
+      "attack": "Tấn công",
+      "attackSpeed": "Tốc đánh",
+      "defense": "Phòng thủ",
+      "active": "Đang hiệu lực",
+      "inactive": "Không hiệu lực",
+      "map": "Bản đồ",
+      "buffs": "Bùa lợi",
+      "debuffs": "Bất lợi",
+      "uplifts": "Cường hóa",
+      "move": "Di chuyển",
+      "baseDmg": "Sát thương cơ bản",
+      "depth": "Độ sâu"
+    },
+    "assign": "Gán",
+    "pool": "Ngân hàng kỹ năng",
+    "slot": {
+      "empty": "Trống",
+      "clear": "Xóa",
+      "reset": "Đặt lại"
+    }
+  },
+  "btn": {
+    "close": "Đóng",
+    "cancel": "Hủy",
+    "start": "Bắt đầu",
+    "yes": "Có",
+    "no": "Không"
+  },
+  "intro": {
+    "tagline": "Thần lửa thức tỉnh."
+  },
+  "flash": {
+    "title": "Đang tải Thuỷ Thần — Mãi Đỉnh",
+    "desc": "Chuẩn bị trải nghiệm lửa…",
+    "note": "Đang tải mô-đun…",
+    "motto": "Thuỷ Thần — Mãi Đỉnh"
+  },
+  "start": {
+    "title": "Hành trình của Thuỷ Thần",
+    "story": "Thế giới chìm trong u ám. Những bóng đêm thức tỉnh; chỉ một vị thần có thể triệu hồi ngọn lửa. Hãy dẫn GoW — vị thuỷ thần — qua rừng hoang, làng mạc đổ nát và chiến trường, tiêu diệt lũ quái và khôi phục trật tự."
+  },
+  "guide": {
+    "button": "👋 Hướng dẫn",
+    "nav": {
+      "previous": "Trước",
+      "next": "Tiếp",
+      "done": "Xong",
+      "close": "Đóng hướng dẫn"
+    },
+    "settings": {
+      "title": "Cài đặt",
+      "desc": "Mở và điều chỉnh tùy chọn, môi trường và âm thanh."
+    },
+    "hero": {
+      "title": "Màn hình Tướng",
+      "desc": "Xem thông tin tướng và cấu hình kỹ năng, trang bị."
+    },
+    "camera": {
+      "title": "Chuyển góc nhìn",
+      "desc": "Chạm để bật/tắt góc nhìn người thứ nhất."
+    },
+    "portal": {
+      "title": "Cổng dịch chuyển",
+      "desc": "Chạm để mở cổng dịch chuyển."
+    },
+    "mark": {
+      "title": "Đánh dấu vị trí",
+      "desc": "Chạm để cắm cờ đánh dấu vị trí trên bản đồ."
+    },
+    "skills": {
+      "title": "Kỹ năng",
+      "desc": "Nhấn Basic hoặc Q/W/E/R để dùng kỹ năng. Thời gian hồi hiển thị ở vòng."
+    },
+    "hud": {
+      "title": "HUD",
+      "desc": "Thanh HP/MP/XP hiển thị trạng thái. Cấp hiển thị ở bên phải."
+    },
+    "joystick": {
+      "title": "Joystick",
+      "desc": "Kéo để di chuyển. Trên máy tính, nhấp phải để di chuyển."
+    }
+  },
+  "death": {
+    "msg": "Bạn đã chết. Đang hồi sinh..."
+  },
+  "uplift": {
+    "unlocked": "Cường hóa mở khóa",
+    "choose": "Chọn một cường hóa cho Đòn Đánh Cơ Bản:",
+    "btn": {
+      "aoe": "AOE",
+      "chain": "Chuỗi",
+      "impact": "Hiệu ứng"
+    },
+    "decideLater": "Quyết định sau",
+    "applied": "Đã áp dụng cường hóa!",
+    "none": "Chưa chọn cường hóa",
+    "basic": "Cường hóa cơ bản",
+    "lv": "Cấp"
+  },
+  "assign": {
+    "assign": "Gán",
+    "toKey": "vào phím:",
+    "toSlot": "vào ô:",
+    "tip": "Mẹo: nhấn Q, W, E hoặc R để chọn nhanh",
+    "casted": "Đã thi triển!"
+  },
+  "skills": {
+    "names": {
+      "basic_attack": "Đánh Thường",
+      "flame_chain": "Chuỗi Lửa",
+      "inferno_blast": "Vụ Nổ Địa Ngục",
+      "burning_aura": "Hào Quang Thiêu Đốt",
+      "meteor_storm": "Bão Thiên Thạch",
+      "fire_bolt": "Tia Lửa",
+      "flame_nova": "Nova Lửa",
+      "blazing_aura": "Hào Quang Rực Cháy",
+      "scorching_field": "Trường Thiêu Đốt",
+      "inferno_overload": "Quá Tải Địa Ngục",
+      "fireball": "Cầu Lửa",
+      "flame_spear": "Thương Lửa",
+      "heatwave": "Sóng Nhiệt",
+      "volcanic_wrath": "Thịnh Nộ Núi Lửa",
+      "fire_dome": "Vòm Lửa",
+      "lava_storm": "Bão Dung Nham",
+      "flame_ring": "Vòng Lửa",
+      "ember_burst": "Vụ Nổ Tàn Lửa",
+      "pyroclasm": "Núi Lửa Phun Trào"
+    },
+    "shorts": {
+      "basic_attack": "Thường",
+      "flame_chain": "Chuỗi",
+      "inferno_blast": "Nổ",
+      "burning_aura": "Thiêu",
+      "meteor_storm": "Bão",
+      "fire_bolt": "Tia+",
+      "flame_nova": "Nova",
+      "blazing_aura": "Rực",
+      "scorching_field": "Đốt",
+      "inferno_overload": "QuáTải",
+      "fireball": "Cầu",
+      "flame_spear": "Thương",
+      "heatwave": "Nhiệt",
+      "volcanic_wrath": "ThịnhNộ",
+      "fire_dome": "Vòm",
+      "lava_storm": "DungNham",
+      "flame_ring": "Vòng",
+      "ember_burst": "TànLửa",
+      "pyroclasm": "PhunTrào"
+    },
+    "types": {
+      "chain": "Nhảy giữa kẻ địch gần đó, đánh nhiều mục tiêu.",
+      "aoe": "Khu vực mục tiêu trên mặt đất, gây sát thương trong bán kính.",
+      "aura": "Hào quang bật/tắt quanh tướng, gây sát thương định kỳ và tiêu tốn mana.",
+      "storm": "Nhiều cú đánh ngẫu nhiên trong bán kính theo thời gian.",
+      "beam": "Tia lửa lập tức tới kẻ địch gần nhất trong tầm.",
+      "nova": "Nổ tỏa quanh tướng.",
+      "heal": "Hồi HP ngay lập tức.",
+      "mana": "Hồi MP ngay lập tức.",
+      "buff": "Tạm thời tăng sát thương và tốc độ.",
+      "dash": "Lướt nhanh về phía trước.",
+      "blink": "Dịch chuyển tới hướng/điểm.",
+      "clone": "Triệu hồi ảnh lửa thiêu đốt kẻ địch định kỳ.",
+      "shield": "Giảm sát thương nhận vào trong thời gian ngắn; có thể grant miễn nhiễm tạm thời."
+    },
+    "stats": {
+      "type": "Loại",
+      "cooldown": "Thời gian hồi",
+      "mana": "Mana",
+      "radius": "Bán kính",
+      "range": "Tầm",
+      "jumps": "Số lần nhảy",
+      "jumpRange": "Tầm nhảy",
+      "tick": "Tick",
+      "duration": "Thời lượng",
+      "slow": "Làm chậm",
+      "slowDuration": "Thời gian làm chậm",
+      "damage": "Sát thương",
+      "base": "cơ bản"
+    }
+  },
+  "maps": {
+    "endless": "Vô hạn",
+    "current": "Hiện tại",
+    "locked": "Bị khoá",
+    "requires": "Yêu cầu",
+    "loadMore": "Tải thêm",
+    "depthDesc": "Độ sâu +${depth}. Mỗi bước làm kẻ địch mạnh hơn: HP, sát thương, tốc độ và mật độ tăng.",
+    "elites": "Kẻ tinh nhuệ:"
+  }
+}

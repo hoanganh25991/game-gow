@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en" class="splash-active">
+
+<head>
+  <title>GoW RPG</title>
+  
+  <!-- Inline critical CSS for splash screen to avoid render-blocking -->
+  <style>
+    /* Minimal critical styles for splash screen - inlined for fast LCP */
+    .flash {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-radial-fire);
+      display: grid;
+      place-items: center;
+      z-index: 9999;
+    }
+    .flash-card {
+      text-align: center;
+      color: var(--system-text);
+      padding: 2rem;
+      max-width: 500px;
+    }
+    .flash-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .flash-desc {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+    .progress {
+      width: 100%;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress .bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--theme-orange), var(--theme-light-orange));
+      transition: width 0.3s ease;
+    }
+    .flash-note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--system-text);
+      opacity: 0.6;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-display: swap; /* Ensure text remains visible during font load */
+      overflow: hidden;
+    }
+    /* Hide non-critical content initially */
+    #hud, #topRightGroup, #bottomLeftGroup, #bottomRightGroup, #bottomMiddle {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .splash-active #hud,
+    .splash-active #topRightGroup,
+    .splash-active #bottomLeftGroup,
+    .splash-active #bottomRightGroup,
+    .splash-active #bottomMiddle {
+      opacity: 0;
+    }
+    
+    /* Notification animations */
+    @keyframes notifFadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+    @keyframes notifFadeOut {
+      from {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+    }
+  </style>
+  
+  <!-- Defer non-critical stylesheets to avoid blocking LCP -->
+  <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" href="css/landscape.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/landscape.css" />
+  </noscript>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.png" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <meta charset="utf-8" />
+  <meta name="theme-color" content="#ff6b35" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+
+  <meta property="og:title" content="God of Fire RPG" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="Top-down action game with God of Fire and volcanic fire abilities." />
+  <meta property="og:url" content="https://hoanganh25991.github.io/bul-game-10" />
+  <meta property="og:image" content="https://hoanganh25991.github.io/bul-game-10/og.jpeg" />
+</head>
+
+<body>
+  <!-- Three.js renderer will append its canvas to body and sit under UI -->
+  <!-- Landscape requirement overlay (visible in portrait only via CSS) -->
+  <div id="rotateOverlay" class="rotate-overlay" role="dialog" aria-modal="true" aria-live="polite">
+    <div>
+      <div style="font-size:48px;margin-bottom:12px;">🔄</div>
+      <h2>Rotate device</h2>
+      <p>Please use landscape orientation to play.</p>
+    </div>
+  </div>
+
+  <!-- UI/HUD Overlay -->
+  <div id="hud">
+    <div id="stats">
+      <div class="bar hp">
+        <div class="fill" id="hpFill"></div>
+        <div class="label"><span>HP</span><span id="hpText">100/100</span></div>
+      </div>
+      <div class="bar mp">
+        <div class="fill" id="mpFill"></div>
+        <div class="label"><span>MP</span><span id="mpText">100/100</span></div>
+      </div>
+      <div class="bar xp">
+        <div class="fill" id="xpFill"></div>
+        <div class="label"><span>XP</span><span id="xpText">0/100</span></div>
+      </div>
+      <div id="level">Lv <span id="levelValue">1</span></div>
+    </div>
+  </div>
+
+  <!-- Top-right flex group: minimap above screen buttons -->
+  <div id="topRightGroup">
+    <!-- Minimap -->
+    <canvas id="minimap" width="180" height="180"></canvas>
+    <!-- Screen buttons row (below minimap) -->
+    <div id="screenGroup">
+      <button id="btnInstructionGuide" class="icon-btn" title="Guide">✋</button>
+      <button id="btnSettingsScreen" class="icon-btn" aria-label="Settings" title="Cài đặt / Settings">⚙️</button>
+      <button id="btnHeroScreen" class="icon-btn" aria-label="Hero" title="Hero">👹</button>
+    </div>
+  </div>
+
+  <!-- Hints -->
+  <div id="hints" style="display:none;">
+    <div>DOTA-style controls:</div>
+    <div>- Left Click: attack</div>
+    <div>- Right Click: move</div>
+    <div>- Q/W/E/R: skills</div>
+    <div>- S: Stop (cancel orders)</div>
+    <div>- B: Recall to village (opens portal back)</div>
+  </div>
+
+  <div id="deathMsg" class="center-msg" style="display:none;" data-i18n="death.msg">You died. Respawning...</div>
+
+  <!-- Settings Panel (now full-screen system screen) -->
+  <div id="settingsPanel" class="screen hidden system-screen" role="dialog" aria-modal="true"
+    aria-labelledby="settingsTitle">
+    <div class="screen-content">
+      <div class="panel-header">
+        <h2 id="settingsTitle" data-i18n="settings.title">Cài đặt</h2>
+        <button id="btnCloseSettings" class="icon-btn small screen-close" aria-label="Close">✕</button>
+      </div>
+      <div class="panel-content">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-i18n="settings.tabs.general" aria-controls="tabGeneral">General</button>
+          <button class="tab-btn" data-i18n="settings.tabs.environment" aria-controls="tabEnvironment">Environment</button>
+          <button class="tab-btn" data-i18n="settings.tabs.info" aria-controls="tabInfo">Info</button>
+        </div>
+
+        <div id="tabGeneral" class="tab-panel active">
+          <div class="row">
+            <span class="row-label" data-i18n="settings.language">Ngôn ngữ</span>
+            <div class="lang-switch">
+              <button class="flag" id="langVi" title="Tiếng Việt" aria-label="Tiếng Việt">🇻🇳</button>
+              <button class="flag" id="langEn" title="English" aria-label="English">🇺🇸</button>
+            </div>
+          </div>
+          <div class="row">
+            <span class="row-label" data-i18n="settings.instructions">Hướng dẫn</span>
+            <div class="instructions" id="settingsInstructions"></div>
+          </div>
+          <div class="row">
+            <span class="row-label" data-i18n="settings.general.fullscreen">Fullscreen</span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <label style="display:flex;align-items:center;gap:8px;">
+                <input type="checkbox" id="fullscreenToggle" />
+                <span data-i18n="settings.general.fullscreenShort">On</span>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <span class="row-label">Âm thanh / Sound</span>
+            <div class="sound-controls" style="display:flex;flex-direction:column;gap:8px;">
+              <label style="display:flex;align-items:center;gap:8px;">
+                <input type="checkbox" id="musicToggle" /> <span>Music</span>
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;">
+                <input type="checkbox" id="sfxToggle" /> <span>SFX</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <span class="row-label">Purchases</span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <button id="btnRestorePurchases" class="primary">Restore purchases</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tabInfo" class="tab-panel">
+          <div class="row">
+            <span class="row-label">Performance</span>
+            <div class="perf-block" style="font-size: 12px;">
+              <div>
+                <div><b>FPS:</b> <span id="perfFps">--</span></div>
+                <div><b>1% low:</b> <span id="perfFpsLow">--</span></div>
+                <div><b>Avg ms:</b> <span id="perfAvgMs">--</span></div>
+                <div><b>Last ms:</b> <span id="perfMs">--</span></div>
+              </div>
+              <br>
+              <div>
+                <div><b>Used:</b> <span id="memUsed">—</span></div>
+                <div><b>Total:</b> <span id="memTotal">—</span></div>
+                <div><b>Limit:</b> <span id="memLimit">—</span></div>
+                <div><b>Used %:</b> <span id="memPct">—</span></div>
+                <div><b>Device Memory:</b> <span id="deviceMemory">—</span></div>
+              </div>
+              <br>
+              <div>
+                <div><b>Draw calls:</b> <span id="perfCalls">--</span></div>
+                <div><b>Triangles:</b> <span id="perfTriangles">--</span></div>
+                <div><b>Lines:</b> <span id="perfLines">--</span></div>
+                <div><b>Points:</b> <span id="perfPoints">--</span></div>
+                <div><b>Geometries:</b> <span id="perfGeoms">--</span></div>
+                <div><b>Textures:</b> <span id="perfTex">--</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <span class="row-label">WebGL</span>
+            <div class="gl-block" style="font-size: 12px;">
+              <div>
+                <div><b>API:</b> <span id="glApi">--</span></div>
+                <div><b>Antialias:</b> <span id="glAA">--</span></div>
+                <div><b>Power:</b> <span id="glPower">--</span></div>
+              </div>
+              <br>
+              <div>
+                <div><b>Vendor:</b> <span id="glVendor">--</span></div>
+                <div><b>Renderer:</b> <span id="glRenderer">--</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tabEnvironment" class="tab-panel">
+          <div class="row">
+            <span class="row-label">Môi trường</span>
+            <div class="env-controls" style="display:flex;flex-direction:column;gap:8px;">
+              <label style="display:flex;align-items:center;gap:8px;">
+                <input type="checkbox" id="envRainToggle" /> <span data-i18n="settings.env.rain">Rain</span>
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:12px;margin-right:8px;" data-i18n="settings.env.density">Density</span>
+                <input type="range" id="envDensity" min="1" max="10" step="1" value="5" />
+                <span class="slider-value" aria-hidden="true"></span>
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:12px;margin-right:8px;" data-i18n="settings.env.rainDensity">Rain Density</span>
+                <input type="range" id="rainDensity" min="1" max="10" step="1" value="5" />
+                <span class="slider-value" aria-hidden="true"></span>
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:12px;margin-right:8px;" data-i18n="settings.render.zoom">Zoom</span>
+                <input type="range" id="zoomSlider" min="1" max="10" step="1" value="5" />
+                <span class="slider-value" aria-hidden="true"></span>
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:12px;margin-right:8px;" data-i18n="settings.render.quality">Quality</span>
+                <select id="qualitySelect" aria-label="Quality">
+                  <option value="low" data-i18n="settings.render.low">Low</option>
+                  <option value="medium" data-i18n="settings.render.medium">Medium</option>
+                  <option value="high" data-i18n="settings.render.high">High</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer"></div>
+    </div>
+  </div>
+
+  <!-- Hero Screen -->
+  <div id="heroScreen" class="screen hidden system-screen" role="dialog" aria-modal="true" aria-labelledby="heroTitle">
+    <div class="screen-content">
+      <div class="panel-header">
+        <h2 id="heroTitle" data-i18n="hero.title">Thuỷ Thần</h2>
+        <button class="icon-btn small screen-close" aria-label="Close">✕</button>
+      </div>
+      <div class="panel-content">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-i18n="hero.tabs.skills" aria-controls="heroTabSkills">Skills</button>
+          <button class="tab-btn" data-i18n="hero.tabs.info" aria-controls="heroTabInfo">Info</button>
+          <button class="tab-btn" data-i18n="hero.tabs.skillbook" aria-controls="heroTabBook">Skillbook</button>
+          <button class="tab-btn" data-i18n="hero.tabs.maps" aria-controls="heroTabMaps">Maps</button>
+          <button class="tab-btn" data-i18n="hero.tabs.marks" aria-controls="heroTabMarks">Marks</button>
+        </div>
+
+        <div id="heroTabSkills" class="tab-panel active">
+          <div id="heroSkillsList">
+            <div class="hero-skills-grid">
+              <div id="heroSkillsLeft"></div>
+              <div id="heroSkillsRight"></div>
+            </div>
+          </div>
+        </div>
+        <div id="heroTabInfo" class="tab-panel">
+          <div class="items-panel">
+            <div class="items-list"></div>
+          </div>
+        </div>
+        <div id="heroTabBook" class="tab-panel"></div>
+        <div id="heroTabMaps" class="tab-panel"></div>
+        <div id="heroTabMarks" class="tab-panel"></div>
+      </div>
+      <div class="panel-footer"></div>
+    </div>
+  </div>
+
+  <!-- Flash overlay (visible by default to ensure coverage before JS runs) -->
+  <div id="flashOverlay" class="flash" style="display: grid;">
+    <div class="flash-card" role="status" aria-live="polite" aria-busy="true">
+      <h2 class="flash-title" data-i18n="flash.title">Đang tải Thuỷ Thần Mãi Đỉnh</h2>
+      <p class="flash-desc" data-i18n="flash.desc">Chuẩn bị trải nghiệm thuỷ sét…</p>
+      <div class="progress" aria-hidden="false">
+        <div class="bar" id="flashProgressBar" style="width: 0%" role="progressbar" aria-valuemin="0"
+          aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+      <div class="flash-note" style="margin-top:10px;font-size:12px;opacity:0.6;color:var(--system-text)" data-i18n="flash.note">
+        Loading modules…</div>
+
+      <!-- Start screen (pre-rendered in HTML for better LCP) -->
+      <div id="startScreen" class="start-screen" style="display:none; margin-top:12px;">
+        <h2 id="startTitle" data-i18n="start.title">Hành trình của Thuỷ Thần</h2>
+        <p id="startStory" data-i18n="start.story">Thế giới chìm trong u ám. Những bóng đêm tỉnh dậy, và chỉ một vị thần có thể gọi thuỷ sét trở lại. Hãy dẫn GoW — vị thuỷ thần — qua rừng hoang, làng mạc đổ nát và chiến trường, tiêu diệt lũ quái và khôi phục trật tự.</p>
+        <button id="btnStartGame" class="primary" data-i18n="btn.start">Bắt đầu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Touch Controls -->
+  <div id="bottomLeftGroup">
+    <!-- Joystick (bottom-left) -->
+    <div id="joystick">
+      <div id="joyBase"></div>
+      <div id="joyKnob"></div>
+      <!-- Small cancel aim button positioned above joystick -->
+      <!-- <button id="btnCancelAim" class="small">Cancel</button> -->
+    </div>
+  </div>
+
+  <!-- Bottom-right flex group: core controls above skill wheel -->
+  <div id="bottomRightGroup">
+    <div id="coreSkillGroup">
+      <!-- Camera toggle -->
+      <button id="btnCamera" class="icon-btn" aria-label="Camera Toggle" title="Camera">🎥</button>
+      <!-- Portal button -->
+      <button id="btnPortal" class="icon-btn" aria-label="Portal" title="Portal">🌀</button>
+      <!-- Mark/Flag button -->
+      <button id="btnMark" class="icon-btn" aria-label="Mark" title="Mark (3m cd)">🚩</button>
+    </div>
+
+    <!-- Skill wheel (kept as bottom item in the column) -->
+    <div id="skillWheel">
+      <button id="btnBasic" class="skill-btn center" title="Basic">
+        <span class="icon">⚔️</span>
+        <div class="cooldown" id="cdBasic"></div>
+      </button>
+
+      <button id="btnSkillQ" class="skill-btn q" title="Q">
+        <span class="icon"></span>
+        <span class="key">Q</span>
+        <span class="name"></span>
+        <div class="cooldown" id="cdQ"></div>
+      </button>
+
+      <button id="btnSkillW" class="skill-btn w" title="W">
+        <span class="icon"></span>
+        <span class="key">W</span>
+        <span class="name"></span>
+        <div class="cooldown" id="cdW"></div>
+      </button>
+
+      <button id="btnSkillE" class="skill-btn e" title="E">
+        <span class="icon"></span>
+        <span class="key">E</span>
+        <span class="name"></span>
+        <div class="cooldown" id="cdE"></div>
+      </button>
+
+      <button id="btnSkillR" class="skill-btn r" title="R">
+        <span class="icon"></span>
+        <span class="key">R</span>
+        <span class="name"></span>
+        <div class="cooldown" id="cdR"></div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom-middle desktop controls (shown on desktop; mobile uses joystick + skill wheel) -->
+  <div id="bottomMiddle" aria-hidden="true" role="group" aria-label="Desktop controls">
+    <div class="bm-row bm-actions" role="toolbar" aria-label="Actions">
+      <button id="bmCamera" class="icon-btn" title="Camera">🎥</button>
+      <button id="bmPortal" class="icon-btn" title="Portal">🌀</button>
+      <button id="bmMark" class="icon-btn" title="Mark">🚩</button>
+    </div>
+    <div id="bmSkills" class="bm-row bm-skills" role="toolbar" aria-label="Skills">
+      <button class="square-skill skill" data-key="basic" title="Basic" aria-label="Basic">
+        <span class="icon">⚔️</span>
+        <span class="key" aria-hidden="true"></span>
+        <span class="name" aria-hidden="true"></span>
+        <div class="cooldown" data-cd="cdBasic" aria-hidden="true"></div>
+      </button>
+      <button class="square-skill skill" data-key="Q" title="Q" aria-label="Q">
+        <span class="icon"></span>
+        <span class="key">Q</span>
+        <span class="name"></span>
+        <div class="cooldown" data-cd="cdQ" aria-hidden="true"></div>
+      </button>
+      <button class="square-skill skill" data-key="W" title="W" aria-label="W">
+        <span class="icon"></span>
+        <span class="key">W</span>
+        <span class="name"></span>
+        <div class="cooldown" data-cd="cdW" aria-hidden="true"></div>
+      </button>
+      <button class="square-skill skill" data-key="E" title="E" aria-label="E">
+        <span class="icon"></span>
+        <span class="key">E</span>
+        <span class="name"></span>
+        <div class="cooldown" data-cd="cdE" aria-hidden="true"></div>
+      </button>
+      <button class="square-skill skill" data-key="R" title="R" aria-label="R">
+        <span class="icon"></span>
+        <span class="key">R</span>
+        <span class="name"></span>
+        <div class="cooldown" data-cd="cdR" aria-hidden="true"></div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Guide overlay (static, JS-managed) -->
+  <div id="guideOverlayRoot" class="guide-overlay hidden" role="dialog" aria-modal="true">
+    <div class="guide-blocker"></div>
+    <div class="guide-focus"></div>
+    <div class="guide-hand">👉</div>
+    <div class="guide-tooltip">
+      <div class="guide-tooltip-header">
+        <div class="guide-tooltip-title"></div>
+        <button class="guide-close" aria-label="Close guide">✕</button>
+      </div>
+      <div class="guide-tooltip-body"></div>
+      <div class="guide-nav">
+        <button class="secondary" id="guidePrev">Previous</button>
+        <button class="primary" id="guideNext">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quality reload confirm modal (static, JS-managed) -->
+  <div id="qualityReloadConfirm" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="qualityReloadTitle">
+    <div class="modal-box">
+      <button id="qualityReloadClose" class="modal-close-btn" aria-label="Close">✕</button>
+      <h3 id="qualityReloadTitle" data-i18n="settings.render.reloadTitle">Reload required</h3>
+      <div class="modal-desc" data-i18n="settings.render.reloadDesc">Changing graphics quality requires a reload.</div>
+      <div class="modal-actions">
+        <button id="qualityReloadOk" class="primary" data-i18n="btn.yes">Yes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Uplift popup (DOM placed here so JS can just show/hide and populate) -->
+  <div id="upliftPopup" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="uplift-card">
+      <div class="uplift-title"></div>
+      <div class="uplift-desc"></div>
+
+      <div class="uplift-btn-row" role="list">
+        <button class="uplift-btn" data-kind="basic-aoe" role="listitem"></button>
+        <button class="uplift-btn" data-kind="basic-chain" role="listitem"></button>
+        <button class="uplift-btn" data-kind="basic-impact" role="listitem"></button>
+      </div>
+
+      <div class="uplift-footer">
+        <button class="uplift-skip" data-action="skip"></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="upliftToast" role="status" aria-live="polite"></div>
+
+  <!-- Skill Assign Modal -->
+  <div id="skillAssignModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="skillAssignTitle">
+    <div class="modal-box skill-assign-box">
+      <button class="modal-close-btn" aria-label="Close">✕</button>
+      <div id="skillAssignTitle" class="skill-assign-title"></div>
+      <div id="skillAssignGrid" class="skill-assign-grid"></div>
+      <div class="skill-assign-tip">Tip: press Q, W, E or R to choose quickly</div>
+    </div>
+  </div>
+
+  <!-- Preview overlays (static shells used by src/ui/hero/preview.js) -->
+  <div id="__previewKeySelect" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="preview-box">
+      <div class="__preview-title"></div>
+      <div class="__preview-grid"></div>
+      <div class="__preview-tip"></div>
+      <div class="__preview-actions"><button class="preview-cancel"></button></div>
+    </div>
+  </div>
+
+  <div id="__previewCasting" aria-hidden="true" role="status" aria-live="polite">
+    <div class="__preview-card">
+      <div class="__preview-number"></div>
+    </div>
+  </div>
+
+  <script src="lock-zoom.js" defer></script>
+
+  <!-- Deferred module loading for better LCP -->
+  <script>
+    // Mark start time for performance tracking
+    if (window.performance && performance.mark) {
+      performance.mark('page-load-start');
+    }
+
+    // Progressive loading strategy: show splash immediately, defer heavy modules
+    (function() {
+      // Import map must be defined before any module scripts
+      const importMap = document.createElement('script');
+      importMap.type = 'importmap';
+      importMap.textContent = JSON.stringify({
+        imports: {
+          three: "./vendor/three/build/three.module.js"
+        }
+      });
+      document.head.appendChild(importMap);
+
+      // Wait for first paint before loading heavy game modules
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => loadGameModules(), { timeout: 2000 });
+      } else {
+        // Fallback: use setTimeout with minimal delay
+        setTimeout(loadGameModules, 100);
+      }
+
+      function loadGameModules() {
+        if (window.performance && performance.mark) {
+          performance.mark('modules-load-start');
+        }
+        
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = 'src/main.js';
+        
+        // Show UI elements after game is ready
+        script.onload = function() {
+          if (window.performance && performance.mark) {
+            performance.mark('modules-loaded');
+          }
+          
+          // Fade in UI elements
+          setTimeout(() => {
+            const elements = ['hud', 'topRightGroup', 'bottomLeftGroup', 'bottomRightGroup', 'bottomMiddle'];
+            elements.forEach(id => {
+              const el = document.getElementById(id);
+              if (el) el.style.opacity = '1';
+            });
+          }, 100);
+        };
+        
+        document.body.appendChild(script);
+      }
+    })();
+  </script>
+
+  <!-- Update available modal -->
+  <div id="updateAvailableModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="updateAvailableTitle">
+    <div class="modal-box">
+      <h3 id="updateAvailableTitle">Update Available</h3>
+      <div class="modal-desc">A new version of the app is available. Would you like to reload and update now?</div>
+      <div class="modal-actions">
+        <button id="updateLater" class="secondary">Later</button>
+        <button id="updateNow" class="primary">Update Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PWA Register service worker -->
+  <script>
+    try {
+      if (window.location.hostname == "localhost") {
+        console.log("Ignore serviceworker on localhost");
+      } else if ("serviceWorker" in navigator) {
+        // Show confirmation dialog when a new controller takes over
+        navigator.serviceWorker.addEventListener?.("controllerchange", () => {
+          // Show update confirmation modal
+          const modal = document.getElementById("updateAvailableModal");
+          const updateNowBtn = document.getElementById("updateNow");
+          const updateLaterBtn = document.getElementById("updateLater");
+          
+          if (modal && updateNowBtn && updateLaterBtn) {
+            modal.classList.remove("hidden");
+            
+            // Handle "Update Now" button
+            updateNowBtn.onclick = () => {
+              modal.classList.add("hidden");
+              window.location.reload();
+            };
+            
+            // Handle "Later" button
+            updateLaterBtn.onclick = () => {
+              modal.classList.add("hidden");
+            };
+          } else {
+            // Fallback: if modal elements don't exist, reload anyway
+            window.location.reload();
+          }
+        });
+
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("serviceworker.js").then((reg) => {
+            // If an updated worker is already waiting, activate it immediately
+            if (reg.waiting) {
+              try { reg.waiting.postMessage("skipWaiting"); } catch (_) {}
+            }
+            // When a new SW is found, request it to activate ASAP after install
+            reg.addEventListener("updatefound", () => {
+              const nw = reg.installing;
+              if (!nw) return;
+              nw.addEventListener("statechange", () => {
+                if (nw.state === "installed" && navigator.serviceWorker.controller) {
+                  try { reg.waiting && reg.waiting.postMessage("skipWaiting"); } catch (_) {}
+                }
+              });
+            });
+          }).catch(() => { /* ignore registration failures in non-secure contexts */ });
+        });
+      }
+    } catch (_) {}
+  </script>
+</body>
+
+</html>

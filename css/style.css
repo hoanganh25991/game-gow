@@ -1,0 +1,23 @@
+/* css/style.css — entry point that imports modular component styles.
+   This file is intentionally lightweight and pulls in component CSS files
+   that correspond roughly to src/ modules.
+*/
+
+@import "base.css";
+@import "hud.css";
+@import "skills.css";
+@import "panels.css";
+@import "hero.css";
+@import "mobile.css";
+@import "splash.css";
+@import "uplift.css";
+@import "preview.css";
+@import "bottom-middle.css";
+@import "guide.css";
+
+/* NOTE:
+   - The component files will live alongside this file in the css/ directory.
+   - After the component files are created, update index.html to reference
+     <link rel="stylesheet" href="css/style.css" /> instead of the old
+     src/style.css link.
+*/

@@ -1,0 +1,74 @@
+/* Landscape orientation requirement for mobile devices */
+
+.rotate-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--bg-radial-fire);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+}
+
+.rotate-overlay > div {
+  max-width: 400px;
+}
+
+.rotate-overlay h2 {
+  font-size: 28px;
+  margin: 16px 0;
+  color: var(--theme-light-orange);
+  font-weight: bold;
+}
+
+.rotate-overlay p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+/* Show rotate overlay only on mobile in portrait mode */
+@media (max-width: 768px) and (orientation: portrait) {
+  .rotate-overlay {
+    display: flex;
+  }
+
+  /* Hide game content when rotate overlay is shown */
+  body > *:not(.rotate-overlay) {
+    display: none !important;
+  }
+}
+
+/* Ensure landscape mode works properly */
+@media (max-width: 768px) and (orientation: landscape) {
+  .rotate-overlay {
+    display: none;
+  }
+}
+
+/* Desktop: never show rotate overlay */
+@media (min-width: 769px) {
+  .rotate-overlay {
+    display: none !important;
+  }
+}
+
+/* Animation for rotate icon */
+.rotate-overlay > div > div:first-child {
+  animation: rotateIcon 2s ease-in-out infinite;
+}
+
+@keyframes rotateIcon {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+}

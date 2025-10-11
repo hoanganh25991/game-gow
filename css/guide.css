@@ -1,0 +1,164 @@
+/* Instruction guide overlay styles */
+
+.guide-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.guide-overlay.hidden {
+  display: none;
+}
+
+.guide-blocker {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(1px);
+  pointer-events: auto;
+}
+
+.guide-focus {
+  position: absolute;
+  border: 3px solid var(--theme-light-orange);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 4px rgba(255, 217, 74, 0.25),
+    0 0 22px rgba(255, 217, 74, 0.35),
+    0 12px 36px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10001;
+}
+
+.guide-hand {
+  position: absolute;
+  font-size: 48px;
+  pointer-events: none;
+  z-index: 10002;
+  animation: guideHandPoint 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+}
+
+@keyframes guideHandPoint {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, 10px);
+  }
+}
+
+.guide-tooltip {
+  position: absolute;
+  background: var(--system-bg);
+  border: 3px solid rgba(255, 107, 53, 0.5);
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 350px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+  pointer-events: auto;
+  z-index: 10003;
+  animation: tooltipSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes tooltipSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.guide-tooltip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.guide-tooltip-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--theme-light-orange);
+}
+
+.guide-close {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.guide-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.guide-tooltip-body {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.guide-nav {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.guide-nav button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+#guidePrev {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+#guidePrev:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+#guidePrev:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#guideNext {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+#guideNext:hover {
+  background: linear-gradient(135deg, #ff8c42 0%, #ffa552 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+}
+
+#guideNext:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}

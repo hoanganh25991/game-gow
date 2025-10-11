@@ -1,0 +1,255 @@
+{
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "instructions": "Instructions",
+    "tabs": {
+      "general": "General",
+      "environment": "Environment",
+      "controls": "Controls",
+      "info": "Info"
+    },
+    "general": {
+      "fullscreen": "Fullscreen",
+      "fullscreenShort": "On"
+    },
+    "env": {
+      "rain": "Rain",
+      "density": "Density",
+      "rainDensity": "Rain Density"
+    },
+    "render": {
+      "zoom": "Zoom",
+      "quality": "Quality",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "reloadPrompt": "Changing graphics quality requires a reload. Reload now?",
+      "reloadTitle": "Reload required",
+      "reloadDesc": "Changing graphics quality requires a reload."
+    }
+  },
+  "instructions": {
+    "title": "Instructions",
+    "items": [
+      "Mouse + Keyboard",
+      "- Right-click: move",
+      "- Left-click: attack enemies",
+      "- A: hold to automatically basic-attack the nearest enemy",
+      "- Q/W/E/R: abilities",
+      "- S: cancel command",
+      "- B: teleport",
+      "- M: place flag",
+      "",
+      "Touch",
+      "- Joystick: move",
+      "- Skill button: attack",
+      "- Utility button: teleport, place flag"
+    ]
+  },
+  "hero": {
+    "title": "God of Fire",
+    "skills": "Skills",
+    "tabs": {
+      "info": "Info",
+      "skills": "Skills",
+      "skillbook": "Skillbook",
+      "maps": "Maps",
+      "marks": "Marks"
+    },
+    "info": {
+      "level": "Level",
+      "hp": "HP",
+      "mp": "MP",
+      "title": "Hero",
+      "skillPoints": "Skill Points",
+      "attack": "Attack",
+      "attackSpeed": "Attack Speed",
+      "defense": "Defense",
+      "active": "Active",
+      "inactive": "Inactive",
+      "map": "Map",
+      "buffs": "Buffs",
+      "debuffs": "Debuffs",
+      "uplifts": "Uplifts",
+      "move": "Move",
+      "baseDmg": "Base DMG",
+      "depth": "Depth"
+    },
+    "assign": "Assign",
+    "pool": "Skill Pool",
+    "slot": {
+      "empty": "Empty",
+      "clear": "Clear",
+      "reset": "Reset"
+    }
+  },
+  "btn": {
+    "close": "Close",
+    "cancel": "Cancel",
+    "start": "Start",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "intro": {
+    "tagline": "The fire god awakens."
+  },
+  "flash": {
+    "title": "Loading Fire God — Always Peak",
+    "desc": "Preparing fiery experience…",
+    "note": "Loading modules…",
+    "motto": "Fire God — Always Peak"
+  },
+  "start": {
+    "title": "Journey of the Fire God",
+    "story": "The world has slipped into shadow. Waking phantoms roam the land; only one god can summon the flames again. Lead GoW — the fire god — through wild forests, ruined villages and battlefields, slaying hordes of creatures and restoring order."
+  },
+  "guide": {
+    "button": "👋 Guide",
+    "nav": {
+      "previous": "Previous",
+      "next": "Next",
+      "done": "Done",
+      "close": "Close guide"
+    },
+    "settings": {
+      "title": "Settings",
+      "desc": "Open and adjust game options, environment, and audio."
+    },
+    "hero": {
+      "title": "Hero Screen",
+      "desc": "View hero info and configure skills and loadout."
+    },
+    "camera": {
+      "title": "Camera Toggle",
+      "desc": "Tap to toggle first-person camera."
+    },
+    "portal": {
+      "title": "Portal",
+      "desc": "Tap to open a teleport portal."
+    },
+    "mark": {
+      "title": "Mark Location",
+      "desc": "Tap to drop a flag to mark this place on the map."
+    },
+    "skills": {
+      "title": "Skills",
+      "desc": "Tap Basic or Q/W/E/R to use skills. Cooldown shows in the ring."
+    },
+    "hud": {
+      "title": "HUD",
+      "desc": "HP/MP/XP bars show your status. Level is at the right."
+    },
+    "joystick": {
+      "title": "Joystick",
+      "desc": "Drag to move your hero. On desktop, right-click to move."
+    }
+  },
+  "death": {
+    "msg": "You died. Respawning..."
+  },
+  "uplift": {
+    "unlocked": "Uplift Unlocked",
+    "choose": "Choose an enhancement for your Basic Attack:",
+    "btn": {
+      "aoe": "AOE",
+      "chain": "Chain",
+      "impact": "Impact FX"
+    },
+    "decideLater": "Decide later",
+    "applied": "Uplift applied!",
+    "none": "No uplifts chosen yet",
+    "basic": "Basic Uplift",
+    "lv": "Lv"
+  },
+  "assign": {
+    "assign": "Assign",
+    "toKey": "to key:",
+    "toSlot": "to slot:",
+    "tip": "Tip: press Q, W, E or R to choose quickly",
+    "casted": "Casted!"
+  },
+  "skills": {
+    "names": {
+      "basic_attack": "Basic Attack",
+      "flame_chain": "Flame Chain",
+      "inferno_blast": "Inferno Blast",
+      "burning_aura": "Burning Aura",
+      "meteor_storm": "Meteor Storm",
+      "fire_bolt": "Fire Bolt",
+      "flame_nova": "Flame Nova",
+      "blazing_aura": "Blazing Aura",
+      "scorching_field": "Scorching Field",
+      "inferno_overload": "Inferno Overload",
+      "fireball": "Fireball",
+      "flame_spear": "Flame Spear",
+      "heatwave": "Heatwave",
+      "volcanic_wrath": "Volcanic Wrath",
+      "fire_dome": "Fire Dome",
+      "lava_storm": "Lava Storm",
+      "flame_ring": "Flame Ring",
+      "ember_burst": "Ember Burst",
+      "pyroclasm": "Pyroclasm"
+    },
+    "shorts": {
+      "basic_attack": "Basic",
+      "flame_chain": "Chain",
+      "inferno_blast": "Blast",
+      "burning_aura": "Burn",
+      "meteor_storm": "Storm",
+      "fire_bolt": "Bolt+",
+      "flame_nova": "Nova",
+      "blazing_aura": "Blaze",
+      "scorching_field": "Scorch",
+      "inferno_overload": "Over",
+      "fireball": "Ball",
+      "flame_spear": "Spear",
+      "heatwave": "Heat",
+      "volcanic_wrath": "Wrath",
+      "fire_dome": "Dome",
+      "lava_storm": "Lava",
+      "flame_ring": "Ring",
+      "ember_burst": "Ember",
+      "pyroclasm": "Pyro"
+    },
+    "types": {
+      "chain": "Chains between nearby enemies, hitting multiple targets.",
+      "aoe": "Ground-targeted area. Damages enemies within its radius.",
+      "aura": "Toggle aura around hero. Ticks damage periodically while draining mana.",
+      "storm": "Multiple random strikes in a radius over time.",
+      "beam": "Instant fire blast to nearest enemy in range.",
+      "nova": "Radial burst around hero.",
+      "heal": "Restores hero HP instantly.",
+      "mana": "Restores hero MP instantly.",
+      "buff": "Temporarily increases damage and speed.",
+      "dash": "Quickly dash forward.",
+      "blink": "Teleport toward direction/point.",
+      "clone": "Summons a fire image that periodically burns nearby foes.",
+      "shield": "Reduces incoming damage for a short time; may grant brief invulnerability on cast."
+    },
+    "stats": {
+      "type": "Type",
+      "cooldown": "Cooldown",
+      "mana": "Mana",
+      "radius": "Radius",
+      "range": "Range",
+      "jumps": "Jumps",
+      "jumpRange": "Jump Range",
+      "tick": "Tick",
+      "duration": "Duration",
+      "slow": "Slow",
+      "slowDuration": "Slow Duration",
+      "damage": "Damage",
+      "base": "base"
+    }
+  },
+  "maps": {
+    "endless": "Endless",
+    "current": "Current",
+    "locked": "Locked",
+    "requires": "Requires",
+    "loadMore": "Load more",
+    "depthDesc": "Depth +${depth}. Each step strengthens foes: more HP, damage, speed and density.",
+    "elites": "Elites:"
+  }
+}

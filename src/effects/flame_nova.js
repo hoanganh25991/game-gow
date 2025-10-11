@@ -34,10 +34,10 @@ function createFlameNova(baseEffects, center, novaRadius, colors) {
   // 1. Central explosion core (bright sphere)
   const coreGeo = new THREE.SphereGeometry(1.5, 16, 16);
   const coreMat = new THREE.MeshBasicMaterial({
-    color: 0xffff00, // Bright yellow
+    color: colors.core || "#ffff00",
     transparent: true,
     opacity: 1.0,
-    emissive: 0xffff00,
+    emissive: colors.core || "#ffff00",
     emissiveIntensity: 1.0
   });
   const core = new THREE.Mesh(coreGeo, coreMat);
@@ -47,7 +47,7 @@ function createFlameNova(baseEffects, center, novaRadius, colors) {
   // 2. Outer glow layer
   const glowGeo = new THREE.SphereGeometry(2.5, 16, 16);
   const glowMat = new THREE.MeshBasicMaterial({
-    color: 0xff6347,
+    color: colors.primary || "#ff6347",
     transparent: true,
     opacity: 0.6
   });
@@ -58,10 +58,10 @@ function createFlameNova(baseEffects, center, novaRadius, colors) {
   // 3. Expanding fire wave (torus that expands outward)
   const waveGeo = new THREE.TorusGeometry(2, 0.5, 8, 32);
   const waveMat = new THREE.MeshBasicMaterial({
-    color: 0xff4500,
+    color: colors.secondary || "#ff4500",
     transparent: true,
     opacity: 0.8,
-    emissive: 0xff4500,
+    emissive: colors.secondary || "#ff4500",
     emissiveIntensity: 0.6
   });
   const wave = new THREE.Mesh(waveGeo, waveMat);
@@ -80,10 +80,10 @@ function createFlameNova(baseEffects, center, novaRadius, colors) {
     // Create ray as a stretched cone
     const rayGeo = new THREE.ConeGeometry(0.3, rayLength, 8);
     const rayMat = new THREE.MeshBasicMaterial({
-      color: 0xff6347,
+      color: colors.primary || "#ff6347",
       transparent: true,
       opacity: 0.8,
-      emissive: 0xff6347,
+      emissive: colors.primary || "#ff6347",
       emissiveIntensity: 0.5
     });
     const ray = new THREE.Mesh(rayGeo, rayMat);
@@ -103,10 +103,10 @@ function createFlameNova(baseEffects, center, novaRadius, colors) {
     // Flame at end of ray
     const flameGeo = new THREE.ConeGeometry(0.5, 1.5, 8);
     const flameMat = new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       transparent: true,
       opacity: 0.9,
-      emissive: 0xffd700,
+      emissive: colors.accent || "#ffd700",
       emissiveIntensity: 0.7
     });
     const flame = new THREE.Mesh(flameGeo, flameMat);
@@ -123,7 +123,7 @@ function createFlameNova(baseEffects, center, novaRadius, colors) {
     setTimeout(() => {
       const ringGeo = new THREE.RingGeometry(0.5, 1.5, 32);
       const ringMat = new THREE.MeshBasicMaterial({
-        color: i === 0 ? 0xffff00 : 0xff6347,
+        color: i === 0 ? (colors.core || "#ffff00") : (colors.primary || "#ff6347"),
         transparent: true,
         opacity: 0.8,
         side: THREE.DoubleSide
@@ -162,7 +162,7 @@ function createFlameNova(baseEffects, center, novaRadius, colors) {
       ),
       gravity: -5,
       size: 0.15 + Math.random() * 0.1,
-      color: i % 3 === 0 ? 0xffd700 : (i % 3 === 1 ? 0xff6347 : 0xff4500),
+      color: i % 3 === 0 ? (colors.accent || "#ffd700") : (i % 3 === 1 ? (colors.primary || "#ff6347") : (colors.secondary || "#ff4500")),
       opacity: 0.9,
       fade: true
     });
@@ -186,7 +186,7 @@ function createFlameNova(baseEffects, center, novaRadius, colors) {
         ),
         gravity: -8,
         size: 0.12,
-        color: 0xffd700,
+        color: colors.accent || "#ffd700",
         opacity: 0.8,
         fade: true
       });

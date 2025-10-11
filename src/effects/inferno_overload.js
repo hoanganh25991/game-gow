@@ -30,7 +30,7 @@ class InfernoOverloadEffect {
   // Inner explosion core (yellow-white)
   const coreGeo = new THREE.SphereGeometry(2.5, 32, 32);
   const coreMat = new THREE.MeshBasicMaterial({
-    color: 0xffff00,
+    color: colors.explosion || "#ffff00",
     transparent: true,
     opacity: 1.0
   });
@@ -41,7 +41,7 @@ class InfernoOverloadEffect {
   // Middle explosion layer (orange)
   const midGeo = new THREE.SphereGeometry(3.5, 32, 32);
   const midMat = new THREE.MeshBasicMaterial({
-    color: 0xff4500,
+    color: colors.primary || "#ff4500",
     transparent: true,
     opacity: 0.7
   });
@@ -52,7 +52,7 @@ class InfernoOverloadEffect {
   // Outer explosion layer (red)
   const outerGeo = new THREE.SphereGeometry(5.0, 32, 32);
   const outerMat = new THREE.MeshBasicMaterial({
-    color: 0xff6347,
+    color: colors.secondary || "#ff6347",
     transparent: true,
     opacity: 0.4
   });
@@ -91,7 +91,7 @@ class InfernoOverloadEffect {
     }
     
     const spiralGeo = new THREE.BufferGeometry().setFromPoints(spiralPoints);
-    const spiralColor = i % 2 === 0 ? 0xff4500 : 0xffd700;
+    const spiralColor = i % 2 === 0 ? (colors.primary || "#ff4500") : (colors.accent || "#ffd700");
     const spiralMat = new THREE.LineBasicMaterial({
       color: spiralColor,
       transparent: true,
@@ -119,7 +119,7 @@ class InfernoOverloadEffect {
   
   for (let i = 0; i < waveCount; i++) {
     const waveGeo = new THREE.RingGeometry(1.0, 2.0, 64);
-    const waveColor = i === 0 ? 0xffff00 : 0xff4500;
+    const waveColor = i === 0 ? (colors.explosion || "#ffff00") : (colors.primary || "#ff4500");
     const waveMat = new THREE.MeshBasicMaterial({
       color: waveColor,
       transparent: true,
@@ -152,7 +152,7 @@ class InfernoOverloadEffect {
     
     const beamGeo = new THREE.BoxGeometry(0.2, 0.2, beamLength);
     const beamMat = new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       transparent: true,
       opacity: 0
     });
@@ -175,7 +175,7 @@ class InfernoOverloadEffect {
   
   const pillarGeo = new THREE.CylinderGeometry(1.0, 1.2, 12, 24);
   const pillarMat = new THREE.MeshBasicMaterial({
-    color: 0xffff00,
+    color: colors.explosion || "#ffff00",
     transparent: true,
     opacity: 0
   });
@@ -216,8 +216,8 @@ class InfernoOverloadEffect {
         Math.sin(angle) * speed
       );
       
-      const colors = [0xffff00, 0xff4500, 0xffd700];
-      const color = colors[Math.floor(Math.random() * colors.length)];
+      const particleColors = [colors.explosion || "#ffff00", colors.primary || "#ff4500", colors.accent || "#ffd700"];
+      const color = particleColors[Math.floor(Math.random() * particleColors.length)];
       
       baseEffects.queue.push({
         pos: center.clone().add(new THREE.Vector3(0, 1, 0)),
@@ -247,7 +247,7 @@ class InfernoOverloadEffect {
         pos: center.clone(),
         vel: velocity,
         gravity: -20,
-        color: 0xffd700,
+        color: colors.accent || "#ffd700",
         size: 0.12 + Math.random() * 0.1,
         life: 2.5 + Math.random() * 0.8,
         startTime: performance.now()

@@ -14,10 +14,10 @@ import { SKILL_FX } from "../../config/skills_fx.js";
 class BurningAuraEffect {
   constructor(baseEffects, params) {
     const { center, radius, activation, duration = 6000 } = params || {};
-  const fx = SKILL_FX.burning_aura || {};
-  const colors = fx.colors || {};
-  
-  if (!center) return;
+    const fx = SKILL_FX.burning_aura || {};
+    const colors = fx.colors || {};
+    
+    if (!center) return;
   
   const auraRadius = (radius || 14) * 1.0;
   const scene = baseEffects.scene;
@@ -33,7 +33,7 @@ class BurningAuraEffect {
     const ringRadius = auraRadius * (0.3 + i * 0.25);
     const ringGeo = new THREE.RingGeometry(ringRadius - 0.3, ringRadius + 0.3, 64);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: i === 0 ? 0xff8c00 : (i === 1 ? 0xffa500 : 0xff6347),
+      color: i === 0 ? (colors.primary || "#ff8c00") : (i === 1 ? (colors.secondary || "#ffa500") : (colors.accent || "#ff6347")),
       transparent: true,
       opacity: 0.5,
       side: THREE.DoubleSide
@@ -59,7 +59,7 @@ class BurningAuraEffect {
     const emberSize = 0.08 + Math.random() * 0.08;
     
     const emberGeo = new THREE.SphereGeometry(emberSize, 8, 8);
-    const emberColors = [0xff4500, 0xffa500, 0xff6347];
+    const emberColors = [colors.ember || "#ff4500", colors.secondary || "#ffa500", colors.accent || "#ff6347"];
     const emberColor = emberColors[Math.floor(Math.random() * emberColors.length)];
     
     const emberMat = new THREE.MeshBasicMaterial({
@@ -108,7 +108,7 @@ class BurningAuraEffect {
     
     const spoutGeo = new THREE.CylinderGeometry(0.15, 0.2, spoutHeight, 8);
     const spoutMat = new THREE.MeshBasicMaterial({
-      color: 0xffa500,
+      color: colors.secondary || "#ffa500",
       transparent: true,
       opacity: 0.7
     });
@@ -123,7 +123,7 @@ class BurningAuraEffect {
     // Flame cone at top
     const coneGeo = new THREE.ConeGeometry(0.3, 0.6, 8);
     const coneMat = new THREE.MeshBasicMaterial({
-      color: 0xff6347,
+      color: colors.accent || "#ff6347",
       transparent: true,
       opacity: 0.6
     });
@@ -141,7 +141,7 @@ class BurningAuraEffect {
   
   const coreGeo = new THREE.SphereGeometry(0.6, 16, 16);
   const coreMat = new THREE.MeshBasicMaterial({
-    color: 0xff8c00,
+    color: colors.primary || "#ff8c00",
     transparent: true,
     opacity: 0.5
   });
@@ -152,7 +152,7 @@ class BurningAuraEffect {
   // Outer glow layer
   const glowGeo = new THREE.SphereGeometry(0.9, 16, 16);
   const glowMat = new THREE.MeshBasicMaterial({
-    color: 0xffa500,
+    color: colors.secondary || "#ffa500",
     transparent: true,
     opacity: 0.3
   });
@@ -170,7 +170,7 @@ class BurningAuraEffect {
   for (let i = 0; i < waveCount; i++) {
     const waveGeo = new THREE.RingGeometry(0.5, 1.0, 64);
     const waveMat = new THREE.MeshBasicMaterial({
-      color: 0xff6347,
+      color: colors.accent || "#ff6347",
       transparent: true,
       opacity: 0.3,
       side: THREE.DoubleSide

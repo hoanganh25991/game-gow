@@ -53,7 +53,7 @@ class FireBoltEffect {
     const thickness = (size.bolt || 0.3) * (0.8 + Math.random() * 0.4);
     const segGeo = new THREE.CylinderGeometry(thickness * 0.5, thickness * 0.5, segDist, 6);
     const segMat = new THREE.MeshBasicMaterial({
-      color: i % 2 === 0 ? 0xff6347 : 0xffa500,
+      color: i % 2 === 0 ? (colors.accent || "#ff6347") : (colors.secondary || "#ffa500"),
       transparent: true,
       opacity: 0.9
     });
@@ -71,7 +71,7 @@ class FireBoltEffect {
     // Glow sphere at joint
     const jointGeo = new THREE.SphereGeometry(thickness * 1.2, 8, 8);
     const jointMat = new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       transparent: true,
       opacity: 0.8
     });
@@ -105,7 +105,7 @@ class FireBoltEffect {
         const spark = new THREE.Mesh(
           new THREE.SphereGeometry(0.08, 6, 6),
           new THREE.MeshBasicMaterial({
-            color: 0xffd700,
+            color: colors.accent || "#ffd700",
             transparent: true,
             opacity: 1.0
           })
@@ -143,14 +143,14 @@ class FireBoltEffect {
   // Instant flash along path (bolt is so fast it appears instant)
   for (let i = 0; i < points.length; i++) {
     setTimeout(() => {
-      const flash = new THREE.Mesh(
-        new THREE.SphereGeometry(0.3, 8, 8),
-        new THREE.MeshBasicMaterial({
-          color: 0xffff00,
-          transparent: true,
-          opacity: 1.0
-        })
-      );
+        const flash = new THREE.Mesh(
+          new THREE.SphereGeometry(0.3, 8, 8),
+          new THREE.MeshBasicMaterial({
+            color: colors.primary || "#ffff00",
+            transparent: true,
+            opacity: 1.0
+          })
+        );
       flash.position.copy(points[i]);
       baseEffects.transient.add(flash);
       
@@ -176,7 +176,7 @@ function createBoltImpact(position, direction, colors, size, particles, custom, 
   const flash = new THREE.Mesh(
     new THREE.SphereGeometry(size.impact || 1.2, 16, 16),
     new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       transparent: true,
       opacity: 1.0
     })
@@ -200,7 +200,7 @@ function createBoltImpact(position, direction, colors, size, particles, custom, 
     // Create piercing beam
     const beamGeo = new THREE.CylinderGeometry(0.15, 0.1, pierceLength, 8);
     const beamMat = new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       transparent: true,
       opacity: 0.9
     });
@@ -225,7 +225,7 @@ function createBoltImpact(position, direction, colors, size, particles, custom, 
   const shockwave = new THREE.Mesh(
     new THREE.RingGeometry(0.2, 0.4, 32),
     new THREE.MeshBasicMaterial({
-      color: 0xff6347,
+      color: colors.accent || "#ff6347",
       transparent: true,
       opacity: 0.8,
       side: THREE.DoubleSide
@@ -253,7 +253,7 @@ function createBoltImpact(position, direction, colors, size, particles, custom, 
     const spark = new THREE.Mesh(
       new THREE.SphereGeometry(0.08, 6, 6),
       new THREE.MeshBasicMaterial({
-        color: Math.random() > 0.5 ? 0xffd700 : 0xffa500,
+        color: Math.random() > 0.5 ? (colors.accent || "#ffd700") : (colors.secondary || "#ffa500"),
         transparent: true,
         opacity: 1.0
       })
@@ -289,7 +289,7 @@ function createBoltImpact(position, direction, colors, size, particles, custom, 
       const pillar = new THREE.Mesh(
         new THREE.CylinderGeometry(0.15, 0.25, 2, 8),
         new THREE.MeshBasicMaterial({
-          color: i % 2 === 0 ? 0xff6347 : 0xffa500,
+          color: i % 2 === 0 ? (colors.accent || "#ff6347") : (colors.secondary || "#ffa500"),
           transparent: true,
           opacity: 0.8
         })
@@ -315,7 +315,7 @@ function createBoltImpact(position, direction, colors, size, particles, custom, 
   const scorch = new THREE.Mesh(
     new THREE.CircleGeometry(1.5, 32),
     new THREE.MeshBasicMaterial({
-      color: 0x2a1a0a,
+      color: "#2a1a0a",
       transparent: true,
       opacity: 0.6,
       side: THREE.DoubleSide

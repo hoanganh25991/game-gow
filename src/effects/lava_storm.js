@@ -39,7 +39,7 @@ function createLavaGeyser(baseEffects, pos, colors) {
   // 1. Molten pool base (glowing lava pool)
   const poolGeo = new THREE.CircleGeometry(2, 32);
   const poolMat = new THREE.MeshBasicMaterial({
-    color: 0x8b0000, // Dark red
+    color: colors.secondary || "#8b0000",
     transparent: true,
     opacity: 0.9,
     side: THREE.DoubleSide
@@ -55,10 +55,10 @@ function createLavaGeyser(baseEffects, pos, colors) {
     const crackLength = 2.5 + Math.random() * 1;
     const crackGeo = new THREE.PlaneGeometry(0.15, crackLength);
     const crackMat = new THREE.MeshBasicMaterial({
-      color: 0xff4500, // Bright orange
+      color: colors.primary || "#ff4500",
       transparent: true,
       opacity: 0.8,
-      emissive: 0xff4500,
+      emissive: colors.primary || "#ff4500",
       emissiveIntensity: 0.5
     });
     const crack = new THREE.Mesh(crackGeo, crackMat);
@@ -84,7 +84,7 @@ function createLavaGeyser(baseEffects, pos, colors) {
       vel: new THREE.Vector3(spreadX, speed, spreadZ),
       gravity: -15,
       size: 0.15 + Math.random() * 0.15,
-      color: i % 3 === 0 ? 0xffa500 : (i % 3 === 1 ? 0xff4500 : 0xff6347),
+      color: i % 3 === 0 ? (colors.accent || "#ffa500") : (i % 3 === 1 ? (colors.primary || "#ff4500") : "#ff6347"),
       opacity: 0.9,
       fade: true
     });
@@ -93,10 +93,10 @@ function createLavaGeyser(baseEffects, pos, colors) {
   // 4. Geyser column (cylinder of lava shooting up)
   const columnGeo = new THREE.CylinderGeometry(0.6, 0.8, 6, 16);
   const columnMat = new THREE.MeshBasicMaterial({
-    color: 0xff4500,
+    color: colors.primary || "#ff4500",
     transparent: true,
     opacity: 0.7,
-    emissive: 0xff4500,
+    emissive: colors.primary || "#ff4500",
     emissiveIntensity: 0.6
   });
   const column = new THREE.Mesh(columnGeo, columnMat);
@@ -119,7 +119,7 @@ function createLavaGeyser(baseEffects, pos, colors) {
     setTimeout(() => {
       const ringGeo = new THREE.RingGeometry(0.5, 0.8, 32);
       const ringMat = new THREE.MeshBasicMaterial({
-        color: 0xff6347,
+        color: colors.primary || "#ff6347",
         transparent: true,
         opacity: 0.7,
         side: THREE.DoubleSide
@@ -200,7 +200,7 @@ function createLavaStormArea(baseEffects, center, stormRadius, colors) {
   // 1. Main lava ground (large molten area)
   const groundGeo = new THREE.CircleGeometry(stormRadius, 64);
   const groundMat = new THREE.MeshBasicMaterial({
-    color: 0x8b0000, // Dark red lava
+    color: colors.secondary || "#8b0000",
     transparent: true,
     opacity: 0.6,
     side: THREE.DoubleSide
@@ -216,10 +216,10 @@ function createLavaStormArea(baseEffects, center, stormRadius, colors) {
     const veinLength = stormRadius * 0.9;
     const veinGeo = new THREE.PlaneGeometry(0.2, veinLength);
     const veinMat = new THREE.MeshBasicMaterial({
-      color: 0xff4500,
+      color: colors.primary || "#ff4500",
       transparent: true,
       opacity: 0.8,
-      emissive: 0xff4500,
+      emissive: colors.primary || "#ff4500",
       emissiveIntensity: 0.5
     });
     const vein = new THREE.Mesh(veinGeo, veinMat);
@@ -244,7 +244,7 @@ function createLavaStormArea(baseEffects, center, stormRadius, colors) {
       // Bubble sphere
       const bubbleGeo = new THREE.SphereGeometry(0.3 + Math.random() * 0.3, 12, 12);
       const bubbleMat = new THREE.MeshBasicMaterial({
-        color: 0xffa500,
+        color: colors.accent || "#ffa500",
         transparent: true,
         opacity: 0.8
       });
@@ -276,7 +276,7 @@ function createLavaStormArea(baseEffects, center, stormRadius, colors) {
               vel: new THREE.Vector3(Math.cos(pAngle) * 2, 3, Math.sin(pAngle) * 2),
               gravity: -8,
               size: 0.1,
-              color: 0xff4500,
+              color: colors.primary || "#ff4500",
               opacity: 0.9,
               fade: true
             });
@@ -311,7 +311,7 @@ function createLavaStormArea(baseEffects, center, stormRadius, colors) {
       // Small geyser eruption
       const geyserGeo = new THREE.CylinderGeometry(0.3, 0.4, 4, 12);
       const geyserMat = new THREE.MeshBasicMaterial({
-        color: 0xff4500,
+        color: colors.primary || "#ff4500",
         transparent: true,
         opacity: 0.7
       });
@@ -335,7 +335,7 @@ function createLavaStormArea(baseEffects, center, stormRadius, colors) {
           ),
           gravity: -12,
           size: 0.12,
-          color: 0xff6347,
+          color: colors.primary || "#ff6347",
           opacity: 0.9,
           fade: true
         });
@@ -353,7 +353,7 @@ function createLavaStormArea(baseEffects, center, stormRadius, colors) {
   // 5. Outer ring indicator
   const outerRingGeo = new THREE.RingGeometry(stormRadius - 0.5, stormRadius + 0.5, 64);
   const outerRingMat = new THREE.MeshBasicMaterial({
-    color: 0xff4500,
+    color: colors.primary || "#ff4500",
     transparent: true,
     opacity: 0.5,
     side: THREE.DoubleSide

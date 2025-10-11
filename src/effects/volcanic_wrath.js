@@ -39,7 +39,7 @@ function createLavaBombImpact(position, lavaSize, colors, baseEffects) {
   const lavaSplash = new THREE.Mesh(
     new THREE.DodecahedronGeometry(lavaSize * 0.8, 0),
     new THREE.MeshBasicMaterial({
-      color: 0xff4500,
+      color: colors.primary || "#ff4500",
       transparent: true,
       opacity: 1.0
     })
@@ -56,11 +56,12 @@ function createLavaBombImpact(position, lavaSize, colors, baseEffects) {
   });
   
   // Molten splash particles
+  const splashColors = [colors.primary || "#ff4500", colors.secondary || "#8b0000"];
   for (let i = 0; i < 25; i++) {
     const splash = new THREE.Mesh(
       new THREE.SphereGeometry(0.1 + Math.random() * 0.15, 8, 8),
       new THREE.MeshBasicMaterial({
-        color: Math.random() > 0.5 ? 0xff4500 : 0x8b0000,
+        color: splashColors[Math.floor(Math.random() * splashColors.length)],
         transparent: true,
         opacity: 0.9
       })
@@ -91,7 +92,7 @@ function createLavaBombImpact(position, lavaSize, colors, baseEffects) {
   const pool = new THREE.Mesh(
     new THREE.CircleGeometry(lavaSize * 1.5, 32),
     new THREE.MeshBasicMaterial({
-      color: 0x8b0000,
+      color: colors.secondary || "#8b0000",
       transparent: true,
       opacity: 0.8,
       side: THREE.DoubleSide
@@ -139,7 +140,7 @@ function createVolcanoEruption(center, radius, size, colors, custom, baseEffects
     const crack = new THREE.Mesh(
       new THREE.CylinderGeometry(0.1, 0.15, crackHeight, 8),
       new THREE.MeshBasicMaterial({
-        color: 0xff4500,
+        color: colors.primary || "#ff4500",
         transparent: true,
         opacity: 0.8
       })
@@ -167,7 +168,7 @@ function createVolcanoEruption(center, radius, size, colors, custom, baseEffects
   const warningRing = new THREE.Mesh(
     new THREE.RingGeometry(radius - 1.5, radius + 1.5, 64),
     new THREE.MeshBasicMaterial({
-      color: 0xff4500,
+      color: colors.primary || "#ff4500",
       transparent: true,
       opacity: 0.5,
       side: THREE.DoubleSide
@@ -188,13 +189,14 @@ function createVolcanoEruption(center, radius, size, colors, custom, baseEffects
   });
   
   // Massive lava eruption from crater
+  const lavaParticleColors = [colors.primary || "#ff4500", colors.accent || "#ffd700"];
   setTimeout(() => {
     // Central lava fountain
     for (let i = 0; i < 60; i++) {
       const lavaParticle = new THREE.Mesh(
         new THREE.SphereGeometry(0.2 + Math.random() * 0.3, 8, 8),
         new THREE.MeshBasicMaterial({
-          color: Math.random() > 0.5 ? 0xff4500 : 0xffa500,
+          color: lavaParticleColors[Math.floor(Math.random() * lavaParticleColors.length)],
           transparent: true,
           opacity: 1.0
         })
@@ -240,7 +242,7 @@ function createVolcanoEruption(center, radius, size, colors, custom, baseEffects
       const geyser = new THREE.Mesh(
         new THREE.CylinderGeometry(0.5, 0.8, 10, 12),
         new THREE.MeshBasicMaterial({
-          color: 0xff4500,
+          color: colors.primary || "#ff4500",
           transparent: true,
           opacity: 0.8
         })
@@ -262,7 +264,7 @@ function createVolcanoEruption(center, radius, size, colors, custom, baseEffects
           const particle = new THREE.Mesh(
             new THREE.SphereGeometry(0.15, 8, 8),
             new THREE.MeshBasicMaterial({
-              color: 0xffa500,
+              color: colors.accent || "#ffd700",
               transparent: true,
               opacity: 0.9
             })
@@ -308,7 +310,7 @@ function createVolcanoEruption(center, radius, size, colors, custom, baseEffects
       const smoke = new THREE.Mesh(
         new THREE.CylinderGeometry(1.0, 0.5, 12, 12),
         new THREE.MeshBasicMaterial({
-          color: 0x1a1a1a,
+          color: colors.smoke || "#1a1a1a",
           transparent: true,
           opacity: 0.6
         })
@@ -331,7 +333,7 @@ function createVolcanoEruption(center, radius, size, colors, custom, baseEffects
           const smokeParticle = new THREE.Mesh(
             new THREE.SphereGeometry(0.3 + Math.random() * 0.4, 8, 8),
             new THREE.MeshBasicMaterial({
-              color: 0x2a2a2a,
+              color: colors.smoke || "#1a1a1a",
               transparent: true,
               opacity: 0.5
             })
@@ -371,7 +373,7 @@ function createVolcanoEruption(center, radius, size, colors, custom, baseEffects
       const bomb = new THREE.Mesh(
         new THREE.DodecahedronGeometry(0.4, 0),
         new THREE.MeshBasicMaterial({
-          color: 0xff4500,
+          color: colors.primary || "#ff4500",
           transparent: true,
           opacity: 1.0
         })
@@ -404,7 +406,7 @@ function createVolcanoEruption(center, radius, size, colors, custom, baseEffects
             const trail = new THREE.Mesh(
               new THREE.SphereGeometry(0.15, 6, 6),
               new THREE.MeshBasicMaterial({
-                color: 0xffa500,
+                color: colors.accent || "#ffd700",
                 transparent: true,
                 opacity: 0.8
               })
@@ -428,7 +430,7 @@ function createVolcanoEruption(center, radius, size, colors, custom, baseEffects
           bomb.geometry.dispose();
           bomb.material.dispose();
           
-          createLavaBombImpact(targetPos, 1.5, {}, baseEffects);
+          createLavaBombImpact(targetPos, 1.5, colors, baseEffects);
         }
       };
       

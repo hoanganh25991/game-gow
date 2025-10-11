@@ -25,7 +25,7 @@ class FireballEffect {
   // Core (bright yellow)
   const coreGeo = new THREE.SphereGeometry(ballSize * 0.5, 16, 16);
   const coreMat = new THREE.MeshBasicMaterial({ 
-    color: 0xffff00,
+    color: colors.explosion || "#ffff00",
     transparent: true,
     opacity: 1.0
   });
@@ -35,7 +35,7 @@ class FireballEffect {
   // Middle layer (orange)
   const midGeo = new THREE.IcosahedronGeometry(ballSize * 0.8, 1);
   const midMat = new THREE.MeshBasicMaterial({ 
-    color: 0xffa500,
+    color: colors.secondary || "#ffa500",
     transparent: true,
     opacity: 0.8
   });
@@ -45,7 +45,7 @@ class FireballEffect {
   // Outer flames (red-orange)
   const outerGeo = new THREE.IcosahedronGeometry(ballSize, 1);
   const outerMat = new THREE.MeshBasicMaterial({ 
-    color: 0xff6347,
+    color: colors.primary || "#ff6347",
     transparent: true,
     opacity: 0.7
   });
@@ -101,7 +101,7 @@ class FireballEffect {
           const trailParticle = new THREE.Mesh(
             new THREE.SphereGeometry(0.15, 8, 8),
             new THREE.MeshBasicMaterial({ 
-              color: i % 2 === 0 ? 0xffa500 : 0xff6347,
+              color: i % 2 === 0 ? (colors.secondary || "#ffa500") : (colors.primary || "#ff6347"),
               transparent: true,
               opacity: 0.9
             })
@@ -124,7 +124,7 @@ class FireballEffect {
         const flame = new THREE.Mesh(
           new THREE.SphereGeometry(ballSize * (0.3 + Math.random() * 0.3), 8, 8),
           new THREE.MeshBasicMaterial({ 
-            color: Math.random() > 0.5 ? 0xff4500 : 0xff6347,
+            color: Math.random() > 0.5 ? (colors.accent || "#ff4500") : (colors.primary || "#ff6347"),
             transparent: true,
             opacity: 0.7
           })
@@ -173,7 +173,7 @@ function createFireballExplosion(position, explosionSize, colors, baseEffects) {
   const flash = new THREE.Mesh(
     new THREE.SphereGeometry(explosionSize * 0.5, 16, 16),
     new THREE.MeshBasicMaterial({
-      color: 0xffffff,
+      color: colors.explosion || "#ffffff",
       transparent: true,
       opacity: 1.0
     })
@@ -193,7 +193,7 @@ function createFireballExplosion(position, explosionSize, colors, baseEffects) {
   const explosion = new THREE.Mesh(
     new THREE.IcosahedronGeometry(explosionSize * 0.8, 1),
     new THREE.MeshBasicMaterial({
-      color: 0xff6347,
+      color: colors.primary || "#ff6347",
       transparent: true,
       opacity: 0.9
     })
@@ -215,7 +215,7 @@ function createFireballExplosion(position, explosionSize, colors, baseEffects) {
       const ring = new THREE.Mesh(
         new THREE.RingGeometry(0.3, 0.7, 48),
         new THREE.MeshBasicMaterial({
-          color: i === 0 ? 0xffff00 : (i === 1 ? 0xffa500 : 0xff6347),
+          color: i === 0 ? (colors.explosion || "#ffff00") : (i === 1 ? (colors.secondary || "#ffa500") : (colors.primary || "#ff6347")),
           transparent: true,
           opacity: 0.8,
           side: THREE.DoubleSide
@@ -248,7 +248,7 @@ function createFireballExplosion(position, explosionSize, colors, baseEffects) {
     const ember = new THREE.Mesh(
       new THREE.SphereGeometry(0.1 + Math.random() * 0.1, 8, 8),
       new THREE.MeshBasicMaterial({
-        color: Math.random() > 0.5 ? 0xffa500 : 0xff4500,
+        color: Math.random() > 0.5 ? (colors.secondary || "#ffa500") : (colors.accent || "#ff4500"),
         transparent: true,
         opacity: 0.9
       })
@@ -285,7 +285,7 @@ function createFireballExplosion(position, explosionSize, colors, baseEffects) {
       const pillar = new THREE.Mesh(
         new THREE.CylinderGeometry(0.2, 0.4, 3 + Math.random(), 12),
         new THREE.MeshBasicMaterial({
-          color: i % 2 === 0 ? 0xff6347 : 0xffa500,
+          color: i % 2 === 0 ? (colors.primary || "#ff6347") : (colors.secondary || "#ffa500"),
           transparent: true,
           opacity: 0.8
         })
@@ -311,7 +311,7 @@ function createFireballExplosion(position, explosionSize, colors, baseEffects) {
   const scorch = new THREE.Mesh(
     new THREE.RingGeometry(explosionSize * 0.5, explosionSize * 1.5, 48),
     new THREE.MeshBasicMaterial({
-      color: 0x2a1a0a,
+      color: "#2a1a0a",
       transparent: true,
       opacity: 0.7,
       side: THREE.DoubleSide

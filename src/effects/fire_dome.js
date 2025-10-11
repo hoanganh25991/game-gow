@@ -36,7 +36,7 @@ function createDomeImpact(baseEffects, pos, colors) {
   // Impact flash
   const flashGeo = new THREE.SphereGeometry(1, 16, 16);
   const flashMat = new THREE.MeshBasicMaterial({
-    color: 0xffd700,
+    color: colors.accent || "#ffd700",
     transparent: true,
     opacity: 1.0
   });
@@ -47,7 +47,7 @@ function createDomeImpact(baseEffects, pos, colors) {
   // Expanding ripple
   const rippleGeo = new THREE.RingGeometry(0.5, 1, 32);
   const rippleMat = new THREE.MeshBasicMaterial({
-    color: 0xff6347,
+    color: colors.primary || "#ff6347",
     transparent: true,
     opacity: 0.8,
     side: THREE.DoubleSide
@@ -68,7 +68,7 @@ function createDomeImpact(baseEffects, pos, colors) {
       vel: new THREE.Vector3(Math.cos(angle) * 4, Math.random() * 2, Math.sin(angle) * 4),
       gravity: -8,
       size: 0.1,
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       opacity: 0.9,
       fade: true
     });
@@ -116,7 +116,7 @@ function createFireDome(baseEffects, center, domeRadius, colors) {
   // 1. Base ground ring
   const baseRingGeo = new THREE.RingGeometry(domeRadius - 0.5, domeRadius + 0.5, 64);
   const baseRingMat = new THREE.MeshBasicMaterial({
-    color: 0xff6347,
+    color: colors.primary || "#ff6347",
     transparent: true,
     opacity: 0.6,
     side: THREE.DoubleSide
@@ -139,10 +139,10 @@ function createFireDome(baseEffects, center, domeRadius, colors) {
     // Pillar (cylinder)
     const pillarGeo = new THREE.CylinderGeometry(0.3, 0.4, pillarHeight, 12);
     const pillarMat = new THREE.MeshBasicMaterial({
-      color: 0xff4500,
+      color: colors.secondary || "#ff4500",
       transparent: true,
       opacity: 0.8,
-      emissive: 0xff4500,
+      emissive: colors.secondary || "#ff4500",
       emissiveIntensity: 0.5
     });
     const pillar = new THREE.Mesh(pillarGeo, pillarMat);
@@ -153,10 +153,10 @@ function createFireDome(baseEffects, center, domeRadius, colors) {
     // Flame at top of pillar
     const flameGeo = new THREE.ConeGeometry(0.4, 1.2, 8);
     const flameMat = new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       transparent: true,
       opacity: 0.9,
-      emissive: 0xffd700,
+      emissive: colors.accent || "#ffd700",
       emissiveIntensity: 0.7
     });
     const flame = new THREE.Mesh(flameGeo, flameMat);
@@ -178,7 +178,7 @@ function createFireDome(baseEffects, center, domeRadius, colors) {
           ),
           gravity: -2,
           size: 0.12,
-          color: 0xff6347,
+          color: colors.primary || "#ff6347",
           opacity: 0.8,
           fade: true
         });
@@ -189,7 +189,7 @@ function createFireDome(baseEffects, center, domeRadius, colors) {
   // 3. Semi-transparent dome shell (hemisphere)
   const domeGeo = new THREE.SphereGeometry(domeRadius, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
   const domeMat = new THREE.MeshBasicMaterial({
-    color: 0xff6347,
+    color: colors.primary || "#ff6347",
     transparent: true,
     opacity: 0.15,
     side: THREE.DoubleSide,
@@ -202,7 +202,7 @@ function createFireDome(baseEffects, center, domeRadius, colors) {
   // 4. Wireframe dome overlay for structure
   const wireframeGeo = new THREE.SphereGeometry(domeRadius + 0.1, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2);
   const wireframeMat = new THREE.MeshBasicMaterial({
-    color: 0xff8c00,
+    color: colors.shield || "#ff8c00",
     transparent: true,
     opacity: 0.4,
     wireframe: true
@@ -219,10 +219,10 @@ function createFireDome(baseEffects, center, domeRadius, colors) {
     const ringRadius = domeRadius * (0.4 + i * 0.2);
     const ringGeo = new THREE.TorusGeometry(ringRadius, 0.08, 8, 32);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       transparent: true,
       opacity: 0.6,
-      emissive: 0xffd700,
+      emissive: colors.accent || "#ffd700",
       emissiveIntensity: 0.5
     });
     const ring = new THREE.Mesh(ringGeo, ringMat);
@@ -235,10 +235,10 @@ function createFireDome(baseEffects, center, domeRadius, colors) {
   // 6. Central energy pillar
   const centralGeo = new THREE.CylinderGeometry(0.5, 0.6, pillarHeight * 1.2, 16);
   const centralMat = new THREE.MeshBasicMaterial({
-    color: 0xffd700,
+    color: colors.accent || "#ffd700",
     transparent: true,
     opacity: 0.5,
-    emissive: 0xffd700,
+    emissive: colors.accent || "#ffd700",
     emissiveIntensity: 0.6
   });
   const centralPillar = new THREE.Mesh(centralGeo, centralMat);
@@ -250,7 +250,7 @@ function createFireDome(baseEffects, center, domeRadius, colors) {
     setTimeout(() => {
       const pulseGeo = new THREE.RingGeometry(0.5, 1, 32);
       const pulseMat = new THREE.MeshBasicMaterial({
-        color: 0xff8c00,
+        color: colors.shield || "#ff8c00",
         transparent: true,
         opacity: 0.7,
         side: THREE.DoubleSide

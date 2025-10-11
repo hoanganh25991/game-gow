@@ -29,7 +29,7 @@ class EmberBurstEffect {
   // Inner core (bright yellow)
   const coreGeo = new THREE.SphereGeometry(0.8, 24, 24);
   const coreMat = new THREE.MeshBasicMaterial({
-    color: 0xffff00,
+    color: colors.accent || "#ffff00",
     transparent: true,
     opacity: 1.0
   });
@@ -40,7 +40,7 @@ class EmberBurstEffect {
   // Middle glow layer (orange)
   const glowGeo = new THREE.SphereGeometry(1.4, 24, 24);
   const glowMat = new THREE.MeshBasicMaterial({
-    color: 0xffa500,
+    color: colors.primary || "#ffa500",
     transparent: true,
     opacity: 0.7
   });
@@ -51,7 +51,7 @@ class EmberBurstEffect {
   // Outer glow layer (red-orange)
   const outerGlowGeo = new THREE.SphereGeometry(2.0, 24, 24);
   const outerGlowMat = new THREE.MeshBasicMaterial({
-    color: 0xff6347,
+    color: colors.secondary || "#ff6347",
     transparent: true,
     opacity: 0.4
   });
@@ -73,7 +73,7 @@ class EmberBurstEffect {
     // Create ember stream as a cone
     const coneGeo = new THREE.ConeGeometry(0.3, streamLength, 8);
     const coneMat = new THREE.MeshBasicMaterial({
-      color: 0xff8c00,
+      color: colors.ember || "#ff8c00",
       transparent: true,
       opacity: 0.7
     });
@@ -103,7 +103,7 @@ class EmberBurstEffect {
     const emberSize = 0.08 + Math.random() * 0.12;
     
     const emberGeo = new THREE.SphereGeometry(emberSize, 8, 8);
-    const emberColors = [0xff4500, 0xffa500, 0xff6347, 0xff8c00];
+    const emberColors = [colors.ember || "#ff4500", colors.primary || "#ffa500", colors.secondary || "#ff6347", colors.glow || "#ff8c00"];
     const emberColor = emberColors[Math.floor(Math.random() * emberColors.length)];
     
     const emberMat = new THREE.MeshBasicMaterial({
@@ -146,7 +146,7 @@ class EmberBurstEffect {
   for (let i = 0; i < waveCount; i++) {
     const waveGeo = new THREE.RingGeometry(0.5, 1.5, 64);
     const waveMat = new THREE.MeshBasicMaterial({
-      color: 0xffa500,
+      color: colors.primary || "#ffa500",
       transparent: true,
       opacity: 0.6,
       side: THREE.DoubleSide
@@ -171,7 +171,7 @@ class EmberBurstEffect {
   const scorch = new THREE.Mesh(
     new THREE.CircleGeometry(burstRadius * 0.5, 64),
     new THREE.MeshBasicMaterial({
-      color: 0x2a1a0a,
+      color: "#2a1a0a",
       transparent: true,
       opacity: 0.7,
       side: THREE.DoubleSide
@@ -197,8 +197,8 @@ class EmberBurstEffect {
       Math.sin(angle) * speed
     );
     
-    const colors = [0xff4500, 0xffa500, 0xff6347];
-    const color = colors[Math.floor(Math.random() * colors.length)];
+    const particleColors = [colors.ember || "#ff4500", colors.primary || "#ffa500", colors.secondary || "#ff6347"];
+    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
     
     baseEffects.queue.push({
       pos: center.clone(),
@@ -227,7 +227,7 @@ class EmberBurstEffect {
         pos: center.clone(),
         vel: velocity,
         gravity: -8,
-        color: 0xffa500,
+        color: colors.primary || "#ffa500",
         size: 0.1 + Math.random() * 0.08,
         life: 2.5 + Math.random() * 1.0,
         startTime: performance.now()

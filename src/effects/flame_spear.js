@@ -25,7 +25,7 @@ class FlameSpearEffect {
   // Spear shaft (elongated cylinder)
   const shaftGeo = new THREE.CylinderGeometry(0.08, 0.12, spearLength * 0.7, 8);
   const shaftMat = new THREE.MeshBasicMaterial({
-    color: 0x8b4513, // Brown wood
+    color: "#8b4513", // Brown wood
     transparent: true,
     opacity: 0.9
   });
@@ -36,7 +36,7 @@ class FlameSpearEffect {
   // Spear blade (cone)
   const bladeGeo = new THREE.ConeGeometry(0.2, spearLength * 0.4, 8);
   const bladeMat = new THREE.MeshBasicMaterial({
-    color: 0xc0c0c0, // Silver
+    color: "#c0c0c0", // Silver
     transparent: true,
     opacity: 1.0
   });
@@ -48,7 +48,7 @@ class FlameSpearEffect {
   // Glowing flame aura around spear
   const flameGeo = new THREE.CylinderGeometry(0.25, 0.3, spearLength, 12);
   const flameMat = new THREE.MeshBasicMaterial({
-    color: 0xff4500,
+    color: colors.primary || "#ff4500",
     transparent: true,
     opacity: 0.6
   });
@@ -59,7 +59,7 @@ class FlameSpearEffect {
   // Bright tip glow
   const tipGeo = new THREE.SphereGeometry(size.tip || 0.4, 12, 12);
   const tipMat = new THREE.MeshBasicMaterial({
-    color: 0xffd700, // Gold
+    color: colors.accent || "#ffd700",
     transparent: true,
     opacity: 1.0
   });
@@ -114,7 +114,7 @@ class FlameSpearEffect {
           const spiralParticle = new THREE.Mesh(
             new THREE.SphereGeometry(0.1, 8, 8),
             new THREE.MeshBasicMaterial({
-              color: 0xffa500,
+              color: colors.secondary || "#ffa500",
               transparent: true,
               opacity: 0.8
             })
@@ -137,7 +137,7 @@ class FlameSpearEffect {
         const trailFlame = new THREE.Mesh(
           new THREE.SphereGeometry(0.2 + Math.random() * 0.15, 8, 8),
           new THREE.MeshBasicMaterial({
-            color: Math.random() > 0.5 ? 0xff6347 : 0xff4500,
+            color: Math.random() > 0.5 ? (colors.secondary || "#ff6347") : (colors.primary || "#ff4500"),
             transparent: true,
             opacity: 0.8
           })
@@ -160,7 +160,7 @@ class FlameSpearEffect {
         const glow = new THREE.Mesh(
           new THREE.SphereGeometry((size.tip || 0.4) * (custom.tipGlow || 2.0), 12, 12),
           new THREE.MeshBasicMaterial({
-            color: 0xffd700,
+            color: colors.accent || "#ffd700",
             transparent: true,
             opacity: 0.6
           })
@@ -208,7 +208,7 @@ function createSpearImpact(position, direction, pierceDepth, colors, baseEffects
   const flash = new THREE.Mesh(
     new THREE.SphereGeometry(1.5, 16, 16),
     new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       transparent: true,
       opacity: 1.0
     })
@@ -231,7 +231,7 @@ function createSpearImpact(position, direction, pierceDepth, colors, baseEffects
     // Create piercing beam
     const beamGeo = new THREE.CylinderGeometry(0.15, 0.15, pierceDepth, 8);
     const beamMat = new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       transparent: true,
       opacity: 0.9
     });
@@ -257,7 +257,7 @@ function createSpearImpact(position, direction, pierceDepth, colors, baseEffects
       const secondFlash = new THREE.Mesh(
         new THREE.SphereGeometry(1.0, 12, 12),
         new THREE.MeshBasicMaterial({
-          color: 0xff6347,
+          color: colors.secondary || "#ff6347",
           transparent: true,
           opacity: 0.9
         })
@@ -281,7 +281,7 @@ function createSpearImpact(position, direction, pierceDepth, colors, baseEffects
       const ring = new THREE.Mesh(
         new THREE.RingGeometry(0.3, 0.6, 48),
         new THREE.MeshBasicMaterial({
-          color: i === 0 ? 0xffd700 : (i === 1 ? 0xff6347 : 0xff4500),
+          color: i === 0 ? (colors.accent || "#ffd700") : (i === 1 ? (colors.secondary || "#ff6347") : (colors.primary || "#ff4500")),
           transparent: true,
           opacity: 0.8,
           side: THREE.DoubleSide
@@ -314,7 +314,7 @@ function createSpearImpact(position, direction, pierceDepth, colors, baseEffects
     const particle = new THREE.Mesh(
       new THREE.SphereGeometry(0.1 + Math.random() * 0.1, 8, 8),
       new THREE.MeshBasicMaterial({
-        color: Math.random() > 0.5 ? 0xff6347 : 0xffa500,
+        color: Math.random() > 0.5 ? (colors.secondary || "#ff6347") : (colors.trail || "#ffa500"),
         transparent: true,
         opacity: 0.9
       })
@@ -350,7 +350,7 @@ function createSpearImpact(position, direction, pierceDepth, colors, baseEffects
       const pillar = new THREE.Mesh(
         new THREE.CylinderGeometry(0.2, 0.35, 3, 12),
         new THREE.MeshBasicMaterial({
-          color: i % 2 === 0 ? 0xff6347 : 0xffa500,
+          color: i % 2 === 0 ? (colors.secondary || "#ff6347") : (colors.trail || "#ffa500"),
           transparent: true,
           opacity: 0.8
         })
@@ -376,7 +376,7 @@ function createSpearImpact(position, direction, pierceDepth, colors, baseEffects
   const scorch = new THREE.Mesh(
     new THREE.RingGeometry(1.0, 2.5, 48),
     new THREE.MeshBasicMaterial({
-      color: 0x2a1a0a,
+      color: "#2a1a0a",
       transparent: true,
       opacity: 0.7,
       side: THREE.DoubleSide

@@ -268,7 +268,7 @@ class MeteorStormEffect {
           new THREE.DodecahedronGeometry(0.06 + Math.random() * 0.15, 0) :
           new THREE.SphereGeometry(0.06 + Math.random() * 0.12, 6, 6);
         const mat = new THREE.MeshBasicMaterial({
-          color: isRock ? 0x3a2a1a : this.colors.ember,
+          color: isRock ? this.colors.smoke : this.colors.ember,
           transparent: true,
           opacity: 0.9
         });
@@ -297,7 +297,7 @@ class MeteorStormEffect {
       const fireRing = new THREE.Mesh(
         new THREE.RingGeometry(craterSize * 0.5, craterSize * 1.2, 48),
         new THREE.MeshBasicMaterial({
-          color: 0x8b0000,
+          color: this.colors.ring,
           transparent: true,
           opacity: 0.7,
           side: THREE.DoubleSide

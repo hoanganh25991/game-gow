@@ -42,7 +42,7 @@ class ScorchingFieldEffect {
   // Glowing ground fire layer
   const fireGeo = new THREE.CircleGeometry(fieldRadius * 0.9, 64);
   const fireMat = new THREE.MeshBasicMaterial({
-    color: 0x8b0000,
+    color: colors.ground || "#8b0000",
     transparent: true,
     opacity: 0.6,
     side: THREE.DoubleSide
@@ -66,7 +66,7 @@ class ScorchingFieldEffect {
     // Create crack as glowing line
     const crackGeo = new THREE.BoxGeometry(0.12, 0.08, crackLength);
     const crackMat = new THREE.MeshBasicMaterial({
-      color: 0xff8c00,
+      color: colors.secondary || "#ff8c00",
       transparent: true,
       opacity: 0.8
     });
@@ -91,7 +91,7 @@ class ScorchingFieldEffect {
       
       const segGeo = new THREE.SphereGeometry(0.2, 8, 8);
       const segMat = new THREE.MeshBasicMaterial({
-        color: 0xff4500,
+        color: colors.accent || "#ff4500",
         transparent: true,
         opacity: 0.7
       });
@@ -117,7 +117,7 @@ class ScorchingFieldEffect {
     
     const geyserGeo = new THREE.CylinderGeometry(0.25, 0.35, geyserHeight, 12);
     const geyserMat = new THREE.MeshBasicMaterial({
-      color: 0xff6347,
+      color: colors.primary || "#ff6347",
       transparent: true,
       opacity: 0
     });
@@ -132,7 +132,7 @@ class ScorchingFieldEffect {
     // Flame cone at top
     const coneGeo = new THREE.ConeGeometry(0.4, 1.0, 12);
     const coneMat = new THREE.MeshBasicMaterial({
-      color: 0xff4500,
+      color: colors.accent || "#ff4500",
       transparent: true,
       opacity: 0
     });
@@ -165,7 +165,7 @@ class ScorchingFieldEffect {
     
     const emberGeo = new THREE.SphereGeometry(emberSize, 8, 8);
     const emberMat = new THREE.MeshBasicMaterial({
-      color: 0xff4500,
+      color: colors.accent || "#ff4500",
       transparent: true,
       opacity: 0.8
     });
@@ -205,7 +205,7 @@ class ScorchingFieldEffect {
   for (let i = 0; i < waveCount; i++) {
     const waveGeo = new THREE.RingGeometry(0.5, 1.5, 64);
     const waveMat = new THREE.MeshBasicMaterial({
-      color: 0xff6347,
+      color: colors.primary || "#ff6347",
       transparent: true,
       opacity: 0.5,
       side: THREE.DoubleSide

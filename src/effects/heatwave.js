@@ -42,7 +42,7 @@ function createHeatwave(baseEffects, from, to, colors) {
   // Create wave cone (wide, flat cone)
   const waveGeo = new THREE.ConeGeometry(4, distance, 16, 1, true);
   const waveMat = new THREE.MeshBasicMaterial({
-    color: 0xff8c00, // Orange
+    color: colors.primary || "#ff8c00",
     transparent: true,
     opacity: 0.3,
     side: THREE.DoubleSide
@@ -68,7 +68,7 @@ function createHeatwave(baseEffects, from, to, colors) {
     
     const shimmerGeo = new THREE.SphereGeometry(0.15, 8, 8);
     const shimmerMat = new THREE.MeshBasicMaterial({
-      color: 0xffaa00,
+      color: colors.distortion || "#ffaa00",
       transparent: true,
       opacity: 0.6
     });
@@ -94,7 +94,7 @@ function createHeatwave(baseEffects, from, to, colors) {
       
       const ringGeo = new THREE.RingGeometry(0.5, 1.5, 32);
       const ringMat = new THREE.MeshBasicMaterial({
-        color: i % 2 === 0 ? 0xff8c00 : 0xffa500,
+        color: i % 2 === 0 ? (colors.primary || "#ff8c00") : (colors.secondary || "#ffa500"),
         transparent: true,
         opacity: 0.7,
         side: THREE.DoubleSide
@@ -166,7 +166,7 @@ function createHeatwave(baseEffects, from, to, colors) {
         ),
         gravity: -1, // Slow rise
         size: 0.12,
-        color: 0xffaa00,
+        color: colors.distortion || "#ffaa00",
         opacity: 0.5,
         fade: true
       });
@@ -178,7 +178,7 @@ function createHeatwave(baseEffects, from, to, colors) {
     // Impact flash
     const impactGeo = new THREE.SphereGeometry(2, 16, 16);
     const impactMat = new THREE.MeshBasicMaterial({
-      color: 0xff6347,
+      color: colors.accent || "#ff6347",
       transparent: true,
       opacity: 1.0
     });
@@ -189,7 +189,7 @@ function createHeatwave(baseEffects, from, to, colors) {
     // Impact shockwave
     const shockGeo = new THREE.RingGeometry(0.5, 1.5, 32);
     const shockMat = new THREE.MeshBasicMaterial({
-      color: 0xff8c00,
+      color: colors.primary || "#ff8c00",
       transparent: true,
       opacity: 0.8,
       side: THREE.DoubleSide
@@ -223,7 +223,7 @@ function createHeatwave(baseEffects, from, to, colors) {
         ),
         gravity: -8,
         size: 0.15,
-        color: 0xff6347,
+        color: colors.accent || "#ff6347",
         opacity: 0.9,
         fade: true
       });

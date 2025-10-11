@@ -15,10 +15,10 @@ import { SKILL_FX } from "../../config/skills_fx.js";
 class BlazingAuraEffect {
   constructor(baseEffects, params) {
     const { center, radius, activation, duration = 6000 } = params || {};
-  const fx = SKILL_FX.blazing_aura || {};
-  const colors = fx.colors || {};
-  
-  if (!center) return;
+    const fx = SKILL_FX.blazing_aura || {};
+    const colors = fx.colors || {};
+    
+    if (!center) return;
   
   const auraRadius = (radius || 12) * 1.2;
   const scene = baseEffects.scene;
@@ -30,7 +30,7 @@ class BlazingAuraEffect {
   // Inner white core
   const coreGeo = new THREE.SphereGeometry(0.5, 24, 24);
   const coreMat = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
+    color: colors.core || "#ffffff",
     transparent: true,
     opacity: 1.0
   });
@@ -41,7 +41,7 @@ class BlazingAuraEffect {
   // Golden glow layer
   const glowGeo = new THREE.SphereGeometry(0.8, 24, 24);
   const glowMat = new THREE.MeshBasicMaterial({
-    color: 0xffd700,
+    color: colors.primary || "#ffd700",
     transparent: true,
     opacity: 0.7
   });
@@ -52,7 +52,7 @@ class BlazingAuraEffect {
   // Outer orange glow
   const outerGlowGeo = new THREE.SphereGeometry(1.2, 24, 24);
   const outerGlowMat = new THREE.MeshBasicMaterial({
-    color: 0xffa500,
+    color: colors.secondary || "#ffa500",
     transparent: true,
     opacity: 0.4
   });
@@ -72,10 +72,10 @@ class BlazingAuraEffect {
     const ringGeo = new THREE.RingGeometry(ringRadius - 0.4, ringRadius + 0.4, 64);
     
     let ringColor;
-    if (i === 0) ringColor = 0xffffff;
-    else if (i === 1) ringColor = 0xffd700;
-    else if (i === 2) ringColor = 0xffa500;
-    else ringColor = 0xff8c00;
+    if (i === 0) ringColor = colors.core || "#ffffff";
+    else if (i === 1) ringColor = colors.primary || "#ffd700";
+    else if (i === 2) ringColor = colors.secondary || "#ffa500";
+    else ringColor = colors.accent || "#ffff00";
     
     const ringMat = new THREE.MeshBasicMaterial({
       color: ringColor,
@@ -104,7 +104,7 @@ class BlazingAuraEffect {
     const pillarHeight = 3.5 + Math.random() * 1.0;
     
     const pillarGeo = new THREE.CylinderGeometry(0.2, 0.25, pillarHeight, 8);
-    const pillarColor = i % 2 === 0 ? 0xffd700 : 0xffff00;
+    const pillarColor = i % 2 === 0 ? (colors.primary || "#ffd700") : (colors.accent || "#ffff00");
     const pillarMat = new THREE.MeshBasicMaterial({
       color: pillarColor,
       transparent: true,
@@ -121,7 +121,7 @@ class BlazingAuraEffect {
     // Flame cone at top
     const coneGeo = new THREE.ConeGeometry(0.35, 0.8, 8);
     const coneMat = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
+      color: colors.core || "#ffffff",
       transparent: true,
       opacity: 0.7
     });
@@ -146,7 +146,7 @@ class BlazingAuraEffect {
     const particleSize = 0.1 + Math.random() * 0.08;
     
     const particleGeo = new THREE.SphereGeometry(particleSize, 8, 8);
-    const particleColors = [0xffffff, 0xffd700, 0xffff00];
+    const particleColors = [colors.core || "#ffffff", colors.primary || "#ffd700", colors.accent || "#ffff00"];
     const particleColor = particleColors[Math.floor(Math.random() * particleColors.length)];
     
     const particleMat = new THREE.MeshBasicMaterial({
@@ -190,7 +190,7 @@ class BlazingAuraEffect {
   for (let i = 0; i < waveCount; i++) {
     const waveGeo = new THREE.RingGeometry(0.5, 1.2, 64);
     const waveMat = new THREE.MeshBasicMaterial({
-      color: 0xffff00,
+      color: colors.accent || "#ffff00",
       transparent: true,
       opacity: 0.4,
       side: THREE.DoubleSide
@@ -225,7 +225,7 @@ class BlazingAuraEffect {
   
   const spiralGeo = new THREE.BufferGeometry().setFromPoints(spiralPoints);
   const spiralMat = new THREE.LineBasicMaterial({
-    color: 0xffd700,
+    color: colors.primary || "#ffd700",
     transparent: true,
     opacity: 0.7,
     linewidth: 2
@@ -244,7 +244,7 @@ class BlazingAuraEffect {
         baseEffects.spawnRing(
           center,
           auraRadius * (i + 1) / 3,
-          i === 0 ? "#ffffff" : "#ffd700",
+          i === 0 ? (colors.core || "#ffffff") : (colors.primary || "#ffd700"),
           0.6,
           0.7,
           0.6

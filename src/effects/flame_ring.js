@@ -34,10 +34,10 @@ function createFlameRing(baseEffects, center, ringRadius, colors) {
   // 1. Main fire ring (torus)
   const ringGeo = new THREE.TorusGeometry(ringRadius, 0.5, 16, 64);
   const ringMat = new THREE.MeshBasicMaterial({
-    color: 0xff6347,
+    color: colors.primary || "#ff6347",
     transparent: true,
     opacity: 0.8,
-    emissive: 0xff6347,
+    emissive: colors.primary || "#ff6347",
     emissiveIntensity: 0.6
   });
   const ring = new THREE.Mesh(ringGeo, ringMat);
@@ -48,10 +48,10 @@ function createFlameRing(baseEffects, center, ringRadius, colors) {
   // 2. Inner glow ring (smaller torus)
   const innerRingGeo = new THREE.TorusGeometry(ringRadius * 0.7, 0.3, 12, 48);
   const innerRingMat = new THREE.MeshBasicMaterial({
-    color: 0xffd700,
+    color: colors.inner || "#ffd700",
     transparent: true,
     opacity: 0.9,
-    emissive: 0xffd700,
+    emissive: colors.inner || "#ffd700",
     emissiveIntensity: 0.8
   });
   const innerRing = new THREE.Mesh(innerRingGeo, innerRingMat);
@@ -62,10 +62,10 @@ function createFlameRing(baseEffects, center, ringRadius, colors) {
   // 3. Outer flame layer (larger torus)
   const outerRingGeo = new THREE.TorusGeometry(ringRadius * 1.2, 0.4, 12, 48);
   const outerRingMat = new THREE.MeshBasicMaterial({
-    color: 0xff4500,
+    color: colors.secondary || "#ff4500",
     transparent: true,
     opacity: 0.6,
-    emissive: 0xff4500,
+    emissive: colors.secondary || "#ff4500",
     emissiveIntensity: 0.5
   });
   const outerRing = new THREE.Mesh(outerRingGeo, outerRingMat);
@@ -85,10 +85,10 @@ function createFlameRing(baseEffects, center, ringRadius, colors) {
     // Flame cone
     const spoutGeo = new THREE.ConeGeometry(0.4, 2, 8);
     const spoutMat = new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.inner || "#ffd700",
       transparent: true,
       opacity: 0.9,
-      emissive: 0xffd700,
+      emissive: colors.inner || "#ffd700",
       emissiveIntensity: 0.7
     });
     const spout = new THREE.Mesh(spoutGeo, spoutMat);
@@ -100,10 +100,10 @@ function createFlameRing(baseEffects, center, ringRadius, colors) {
   // 5. Central energy core (pulsing sphere)
   const coreGeo = new THREE.SphereGeometry(1, 16, 16);
   const coreMat = new THREE.MeshBasicMaterial({
-    color: 0xffd700,
+    color: colors.inner || "#ffd700",
     transparent: true,
     opacity: 0.8,
-    emissive: 0xffd700,
+    emissive: colors.inner || "#ffd700",
     emissiveIntensity: 0.9
   });
   const core = new THREE.Mesh(coreGeo, coreMat);
@@ -113,7 +113,7 @@ function createFlameRing(baseEffects, center, ringRadius, colors) {
   // 6. Ground ring indicator
   const groundRingGeo = new THREE.RingGeometry(ringRadius - 0.5, ringRadius + 0.5, 64);
   const groundRingMat = new THREE.MeshBasicMaterial({
-    color: 0xff6347,
+    color: colors.primary || "#ff6347",
     transparent: true,
     opacity: 0.6,
     side: THREE.DoubleSide
@@ -146,7 +146,7 @@ function createFlameRing(baseEffects, center, ringRadius, colors) {
         ),
         gravity: 0,
         size: 0.15,
-        color: i % 2 === 0 ? 0xffd700 : 0xff6347,
+        color: i % 2 === 0 ? (colors.inner || "#ffd700") : (colors.primary || "#ff6347"),
         opacity: 0.9,
         fade: true
       });
@@ -158,7 +158,7 @@ function createFlameRing(baseEffects, center, ringRadius, colors) {
     setTimeout(() => {
       const shockGeo = new THREE.RingGeometry(0.5, 1.5, 32);
       const shockMat = new THREE.MeshBasicMaterial({
-        color: i === 0 ? 0xffd700 : 0xff6347,
+        color: i === 0 ? (colors.inner || "#ffd700") : (colors.primary || "#ff6347"),
         transparent: true,
         opacity: 0.8,
         side: THREE.DoubleSide
@@ -195,9 +195,9 @@ function createFlameRing(baseEffects, center, ringRadius, colors) {
         Math.sin(angle) * speed * 0.5
       ),
       gravity: -6,
-      size: 0.12,
-      color: 0xffa500,
-      opacity: 0.9,
+        size: 0.12,
+        color: colors.accent || "#ffa500",
+        opacity: 0.9,
       fade: true
     });
   }

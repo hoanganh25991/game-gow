@@ -66,7 +66,7 @@ class PyroclasmEffect {
     // Create crack as a thin stretched box
     const crackGeo = new THREE.BoxGeometry(0.15, 0.1, crackLength);
     const crackMat = new THREE.MeshBasicMaterial({
-      color: 0x8b0000,
+      color: colors.secondary || "#8b0000",
       transparent: true,
       opacity: 0.8
     });
@@ -99,7 +99,7 @@ class PyroclasmEffect {
     // Fire column (cylinder)
     const columnGeo = new THREE.CylinderGeometry(columnRadius, columnRadius * 1.3, columnHeight, 16);
     const columnMat = new THREE.MeshBasicMaterial({
-      color: 0xff4500,
+      color: colors.primary || "#ff4500",
       transparent: true,
       opacity: 0.85
     });
@@ -114,7 +114,7 @@ class PyroclasmEffect {
     // Flame cone at top
     const coneGeo = new THREE.ConeGeometry(columnRadius * 2, columnRadius * 4, 12);
     const coneMat = new THREE.MeshBasicMaterial({
-      color: 0xffd700,
+      color: colors.accent || "#ffd700",
       transparent: true,
       opacity: 0.7
     });
@@ -143,7 +143,7 @@ class PyroclasmEffect {
   for (let i = 0; i < shockwaveCount; i++) {
     const ringGeo = new THREE.RingGeometry(0.5, 1.5, 64);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: i < 2 ? 0xffff00 : 0xff4500,
+      color: i < 2 ? (colors.explosion || "#ffff00") : (colors.primary || "#ff4500"),
       transparent: true,
       opacity: 0.8,
       side: THREE.DoubleSide
@@ -167,7 +167,7 @@ class PyroclasmEffect {
   
   const centralPillarGeo = new THREE.CylinderGeometry(1.2, 1.5, 15, 24);
   const centralPillarMat = new THREE.MeshBasicMaterial({
-    color: 0xffff00,
+    color: colors.explosion || "#ffff00",
     transparent: true,
     opacity: 0
   });
@@ -178,7 +178,7 @@ class PyroclasmEffect {
   // Explosion core at base
   const coreGeo = new THREE.SphereGeometry(2, 24, 24);
   const coreMat = new THREE.MeshBasicMaterial({
-    color: 0xffff00,
+    color: colors.explosion || "#ffff00",
     transparent: true,
     opacity: 0
   });
@@ -205,8 +205,8 @@ class PyroclasmEffect {
         Math.sin(angle) * speed
       );
       
-      const colors = [0xff4500, 0x8b0000, 0xffd700, 0xff6b35];
-      const color = colors[Math.floor(Math.random() * colors.length)];
+      const particleColors = [colors.primary || "#ff4500", colors.secondary || "#8b0000", colors.accent || "#ffd700", "#ff6b35"];
+      const color = particleColors[Math.floor(Math.random() * particleColors.length)];
       
       baseEffects.queue.push({
         pos: center.clone(),
